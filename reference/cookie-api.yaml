@@ -3,31 +3,31 @@ x-stoplight:
   id: mgmu7g11gm8zb
 info:
   title: cookie-api
-  version: '1.0'
+  version: "1.0"
   summary: Cookie API
   description: Endpoints for requesting and revoking Moos session cookies.
   contact:
     name: Admin
-    url: 'https://wolkeneis.dev/contact'
+    url: "https://wolkeneis.dev/contact"
     email: admin@wolkeneis.dev
-  termsOfService: 'https://wolkeneis.dev/privacy'
+  termsOfService: "https://wolkeneis.dev/privacy"
   license:
     name: GPL 3.0
-    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
+    url: "https://www.gnu.org/licenses/gpl-3.0.html"
 servers:
-  - url: 'https://moos.wolkeneis.dev/cookie'
+  - url: "https://moos.wolkeneis.dev/cookie"
     description: Cookie Endpoint
 paths:
   /request:
     post:
-      summary: ''
+      summary: ""
       operationId: post-request
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '403':
+        "403":
           description: Forbidden
       description: Endpoint for requesting a session cookie
       requestBody:
@@ -40,23 +40,23 @@ paths:
                   type: string
               required:
                 - token
-        description: ''
+        description: ""
       parameters: []
   /revoke:
     delete:
-      summary: ''
+      summary: ""
       operationId: delete-revoke
       responses:
-        '204':
+        "204":
           description: No Content
-        '500':
+        "500":
           description: Internal Server Error
       parameters:
         - schema:
             type: string
           in: cookie
           name: session
-          description: 'The session cookie to revoke. '
+          description: "The session cookie to revoke. "
           required: true
       description: Endpoint for revoking a session cookie
 components:
@@ -66,6 +66,6 @@ components:
       name: CSRF Token
       type: apiKey
       in: header
-      description: ''
+      description: ""
 security:
   - CSRF-Token: []

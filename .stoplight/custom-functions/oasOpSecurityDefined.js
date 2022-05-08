@@ -1,11 +1,11 @@
-import { isPlainObject } from '@stoplight/json';
-import { createRulesetFunction } from '@stoplight/spectral-core';
+import { isPlainObject } from "@stoplight/json";
+import { createRulesetFunction } from "@stoplight/spectral-core";
 
 function isObject(value) {
-  return value !== null && typeof value === 'object';
+  return value !== null && typeof value === "object";
 }
 
-const validOperationKeys = ['get', 'head', 'post', 'put', 'patch', 'delete', 'options', 'trace'];
+const validOperationKeys = ["get", "head", "post", "put", "patch", "delete", "options", "trace"];
 
 function* getAllOperations(paths) {
   if (!isPlainObject(paths)) {
@@ -13,9 +13,9 @@ function* getAllOperations(paths) {
   }
 
   const item = {
-    path: '',
-    operation: '',
-    value: null,
+    path: "",
+    operation: "",
+    value: null
   };
 
   for (const path of Object.keys(paths)) {
@@ -54,27 +54,27 @@ function _get(value, path) {
 export default createRulesetFunction(
   {
     input: {
-      type: 'object',
+      type: "object",
       properties: {
         paths: {
-          type: 'object',
+          type: "object"
         },
         security: {
-          type: 'array',
-        },
-      },
+          type: "array"
+        }
+      }
     },
     options: {
-      type: 'object',
+      type: "object",
       properties: {
         schemesPath: {
-          type: 'array',
+          type: "array",
           items: {
-            type: ['string', 'number'],
-          },
-        },
-      },
-    },
+            type: ["string", "number"]
+          }
+        }
+      }
+    }
   },
   function oasOpSecurityDefined(targetVal, { schemesPath }) {
     const { paths } = targetVal;
@@ -99,8 +99,8 @@ export default createRulesetFunction(
         for (const securityKey of securityKeys) {
           if (!allDefs.includes(securityKey)) {
             results.push({
-              message: `API "security" values must match a scheme defined in the "${schemesPath.join('.')}" object.`,
-              path: ['security', index, securityKey],
+              message: `API "security" values must match a scheme defined in the "${schemesPath.join(".")}" object.`,
+              path: ["security", index, securityKey]
             });
           }
         }
@@ -126,10 +126,8 @@ export default createRulesetFunction(
         for (const securityKey of securityKeys) {
           if (!allDefs.includes(securityKey)) {
             results.push({
-              message: `Operation "security" values must match a scheme defined in the "${schemesPath.join(
-                '.',
-              )}" object.`,
-              path: ['paths', path, operation, 'security', index, securityKey],
+              message: `Operation "security" values must match a scheme defined in the "${schemesPath.join(".")}" object.`,
+              path: ["paths", path, operation, "security", index, securityKey]
             });
           }
         }
@@ -137,5 +135,5 @@ export default createRulesetFunction(
     }
 
     return results;
-  },
+  }
 );

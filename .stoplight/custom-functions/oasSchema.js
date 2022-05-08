@@ -1,15 +1,15 @@
-import traverse from 'json-schema-traverse';
-import { schema as schemaFn } from '@stoplight/spectral-functions';
-import { createRulesetFunction } from '@stoplight/spectral-core';
-import { oas2, oas3_1, extractDraftVersion, oas3_0 } from '@stoplight/spectral-formats';
-import { isPlainObject, pointerToPath } from '@stoplight/json';
+import traverse from "json-schema-traverse";
+import { schema as schemaFn } from "@stoplight/spectral-functions";
+import { createRulesetFunction } from "@stoplight/spectral-core";
+import { oas2, oas3_1, extractDraftVersion, oas3_0 } from "@stoplight/spectral-formats";
+import { isPlainObject, pointerToPath } from "@stoplight/json";
 
 function rewriteNullable(schema, errors) {
   for (const error of errors) {
-    if (error.keyword !== 'type') continue;
+    if (error.keyword !== "type") continue;
     const value = getSchemaProperty(schema, error.schemaPath);
     if (isPlainObject(value) && value.nullable === true) {
-      error.message += ',null';
+      error.message += ",null";
     }
   }
 }
@@ -18,30 +18,30 @@ export default createRulesetFunction(
   {
     input: null,
     options: {
-      type: 'object',
+      type: "object",
       properties: {
         schema: {
-          type: 'object',
-        },
+          type: "object"
+        }
       },
-      additionalProperties: false,
-    },
+      additionalProperties: false
+    }
   },
   function oasSchema(targetVal, opts, context) {
     const formats = context.document.formats;
 
     let { schema } = opts;
 
-    let dialect = 'draft4';
+    let dialect = "draft4";
     let prepareResults;
 
     if (!formats) {
-      dialect = 'auto';
+      dialect = "auto";
     } else if (formats.has(oas3_1)) {
-      if (isPlainObject(context.document.data) && typeof context.document.data.jsonSchemaDialect === 'string') {
-        dialect = extractDraftVersion(context.document.data.jsonSchemaDialect) ?? 'draft2020-12';
+      if (isPlainObject(context.document.data) && typeof context.document.data.jsonSchemaDialect === "string") {
+        dialect = extractDraftVersion(context.document.data.jsonSchemaDialect) ?? "draft2020-12";
       } else {
-        dialect = 'draft2020-12';
+        dialect = "draft2020-12";
       }
     } else if (formats.has(oas3_0)) {
       prepareResults = rewriteNullable.bind(null, schema);
@@ -58,17 +58,17 @@ export default createRulesetFunction(
         ...opts,
         schema,
         prepareResults,
-        dialect,
+        dialect
       },
-      context,
+      context
     );
-  },
+  }
 );
 
-const visitOAS2 = schema => {
-  if (schema['x-nullable'] === true) {
+const visitOAS2 = (schema) => {
+  if (schema["x-nullable"] === true) {
     schema.nullable = true;
-    delete schema['x-nullable'];
+    delete schema["x-nullable"];
   }
 };
 

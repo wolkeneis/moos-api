@@ -1,11 +1,11 @@
 function isObject(value) {
-  return value !== null && typeof value === 'object';
+  return value !== null && typeof value === "object";
 }
 
 const pathRegex = /(\{;?\??[a-zA-Z0-9_-]+\*?\})/g;
 
-const isNamedPathParam = p => {
-  return p.in !== void 0 && p.in === 'path' && p.name !== void 0;
+const isNamedPathParam = (p) => {
+  return p.in !== void 0 && p.in === "path" && p.name !== void 0;
 };
 
 const isUnknownNamedPathParam = (p, path, results, seen) => {
@@ -41,14 +41,12 @@ const ensureAllDefinedPathParamsAreUsedInPath = (path, params, expected, results
 const ensureAllExpectedParamsInPathAreDefined = (path, params, expected, operationPath, results) => {
   for (const p of expected) {
     if (!(p in params)) {
-      results.push(
-        generateResult(`Operation must define parameter "{${p}}" as expected by path "${path}".`, operationPath),
-      );
+      results.push(generateResult(`Operation must define parameter "{${p}}" as expected by path "${path}".`, operationPath));
     }
   }
 };
 
-export const oasPathParam = targetVal => {
+export const oasPathParam = (targetVal) => {
   /**
    * This rule verifies:
    *
@@ -65,7 +63,7 @@ export const oasPathParam = targetVal => {
 
   // keep track of normalized paths for verifying paths are unique
   const uniquePaths = {};
-  const validOperationKeys = ['get', 'head', 'post', 'put', 'patch', 'delete', 'options', 'trace'];
+  const validOperationKeys = ["get", "head", "post", "put", "patch", "delete", "options", "trace"];
 
   for (const path of Object.keys(targetVal.paths)) {
     const pathValue = targetVal.paths[path];
@@ -73,14 +71,9 @@ export const oasPathParam = targetVal => {
 
     // verify normalized paths are functionally unique (ie `/path/{one}` vs `/path/{two}` are
     // different but equivalent within the context of OAS)
-    const normalized = path.replace(pathRegex, '%'); // '%' is used here since its invalid in paths
+    const normalized = path.replace(pathRegex, "%"); // '%' is used here since its invalid in paths
     if (normalized in uniquePaths) {
-      results.push(
-        generateResult(`Paths "${String(uniquePaths[normalized])}" and "${path}" must not be equivalent.`, [
-          'paths',
-          path,
-        ]),
-      );
+      results.push(generateResult(`Paths "${String(uniquePaths[normalized])}" and "${path}" must not be equivalent.`, ["paths", path]));
     } else {
       uniquePaths[normalized] = path;
     }
@@ -90,9 +83,9 @@ export const oasPathParam = targetVal => {
     let match;
 
     while ((match = pathRegex.exec(path))) {
-      const p = match[0].replace(/[{}?*;]/g, '');
+      const p = match[0].replace(/[{}?*;]/g, "");
       if (pathElements.includes(p)) {
-        results.push(generateResult(`Path "${path}" must not use parameter "{${p}}" multiple times.`, ['paths', path]));
+        results.push(generateResult(`Path "${path}" must not use parameter "{${p}}" multiple times.`, ["paths", path]));
       } else {
         pathElements.push(p);
       }
@@ -104,7 +97,7 @@ export const oasPathParam = targetVal => {
       for (const [i, value] of pathValue.parameters.entries()) {
         if (!isObject(value)) continue;
 
-        const fullParameterPath = ['paths', path, 'parameters', i];
+        const fullParameterPath = ["paths", path, "parameters", i];
 
         if (isUnknownNamedPathParam(value, fullParameterPath, results, topParams)) {
           topParams[value.name] = fullParameterPath;
@@ -118,19 +111,19 @@ export const oasPathParam = targetVal => {
         const operationValue = pathValue[op];
         if (!isObject(operationValue)) continue;
 
-        if (op === 'parameters' || !validOperationKeys.includes(op)) {
+        if (op === "parameters" || !validOperationKeys.includes(op)) {
           continue;
         }
 
         const operationParams = {};
         const { parameters } = operationValue;
-        const operationPath = ['paths', path, op];
+        const operationPath = ["paths", path, op];
 
         if (Array.isArray(parameters)) {
           for (const [i, p] of parameters.entries()) {
             if (!isObject(p)) continue;
 
-            const fullParameterPath = [...operationPath, 'parameters', i];
+            const fullParameterPath = [...operationPath, "parameters", i];
 
             if (isUnknownNamedPathParam(p, fullParameterPath, results, operationParams)) {
               operationParams[p.name] = fullParameterPath;
@@ -151,12 +144,12 @@ export const oasPathParam = targetVal => {
 function generateResult(message, path) {
   return {
     message,
-    path,
+    path
   };
 }
 
-const requiredMessage = name => `Path parameter "${name}" must have "required" property that is set to "true".`;
+const requiredMessage = (name) => `Path parameter "${name}" must have "required" property that is set to "true".`;
 
-const uniqueDefinitionMessage = name => `Path parameter "${name}" must not be defined multiple times.`;
+const uniqueDefinitionMessage = (name) => `Path parameter "${name}" must not be defined multiple times.`;
 
 export default oasPathParam;
