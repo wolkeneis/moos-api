@@ -28,7 +28,7 @@ paths:
     post:
       tags:
         - profile
-      summary: ""
+      summary: "Get your own Profile, if you are logged in with a session cookie"
       operationId: fetch-profile
       responses:
         "200":
@@ -46,7 +46,9 @@ paths:
         - session: []
       description: ""
     patch:
-      summary: ""
+      tags:
+        - profile
+      summary: "Update your own Profile information, if you are logged in with a session cookie"
       operationId: patch-profile
       responses:
         "200":
