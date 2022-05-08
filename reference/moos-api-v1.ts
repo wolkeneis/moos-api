@@ -5,8 +5,8 @@
 
 export interface paths {
   "/profile": {
-    post: operations["fetch-self"];
-    parameters: {};
+    post: operations["fetch-profile"];
+    patch: operations["patch-profile"];
   };
   "/csrf-token": {
     /** Endpoint for requesting the CSRF Token */
@@ -58,11 +58,11 @@ export interface components {
       creationDate: number;
     };
   };
+  requestBodies: {};
 }
 
 export interface operations {
-  "fetch-self": {
-    parameters: {};
+  "fetch-profile": {
     responses: {
       /** OK */
       200: {
@@ -72,6 +72,25 @@ export interface operations {
       };
       /** Invalid csrf token */
       403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  "patch-profile": {
+    responses: {
+      /** OK */
+      200: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          private?: boolean;
+        };
+      };
     };
   };
   /** Endpoint for requesting the CSRF Token */
@@ -98,7 +117,6 @@ export interface operations {
   };
   /** Endpoint for requesting a session cookie */
   "request-session": {
-    parameters: {};
     responses: {
       /** No Content */
       204: never;
@@ -117,7 +135,6 @@ export interface operations {
   };
   /** Endpoint for revoking a session cookie */
   "revoke-session": {
-    parameters: {};
     responses: {
       /** No Content */
       204: never;
