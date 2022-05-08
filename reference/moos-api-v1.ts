@@ -7,12 +7,11 @@ export interface paths {
   "/profile/self": {
     post: operations["post-self"];
   };
-  "/csrf-token/request": {
+  "/csrf-token": {
     /** Endpoint for requesting the CSRF Token */
-    post: operations["post-request"];
-  };
-  "/csrf-token/try": {
-    post: operations["post-try"];
+    get: operations["get-csrf-token"];
+    /** Endpoint for testing the CSRF Token */
+    post: operations["post-csrf-token"];
   };
   "/session/request": {
     /** Endpoint for requesting a session cookie */
@@ -75,6 +74,28 @@ export interface operations {
       403: unknown;
     };
   };
+  /** Endpoint for requesting the CSRF Token */
+  "get-csrf-token": {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": {
+            _csrf: string;
+          };
+        };
+      };
+    };
+  };
+  /** Endpoint for testing the CSRF Token */
+  "post-csrf-token": {
+    responses: {
+      /** No Content */
+      204: never;
+      /** Invalid csrf token */
+      403: unknown;
+    };
+  };
   /** Endpoint for requesting a session cookie */
   "post-request": {
     parameters: {};
@@ -92,14 +113,6 @@ export interface operations {
           token: string;
         };
       };
-    };
-  };
-  "post-try": {
-    responses: {
-      /** No Content */
-      204: never;
-      /** Invalid csrf token */
-      403: unknown;
     };
   };
   /** Endpoint for revoking a session cookie */
