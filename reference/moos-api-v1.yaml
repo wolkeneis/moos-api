@@ -28,9 +28,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../profile.yaml
+                $ref: '#/components/schemas/UserProfile'
         '403':
           description: Invalid csrf token
+      security:
+        - CSRF-Token: []
+        - session: []
   /csrf-token/request:
     post:
       summary: ''
@@ -83,6 +86,8 @@ paths:
                 - token
         description: ''
       parameters: []
+      security:
+        - CSRF-Token: []
   /session/revoke:
     delete:
       summary: ''
@@ -94,14 +99,11 @@ paths:
           description: Invalid csrf token
         '500':
           description: Internal Server Error
-      parameters:
-        - schema:
-            type: string
-          in: cookie
-          name: session
-          description: 'The session cookie to revoke. '
-          required: true
+      parameters: []
       description: Endpoint for revoking a session cookie
+      security:
+        - session: []
+        - CSRF-Token: []
 components:
   schemas:
     UserProfile:
