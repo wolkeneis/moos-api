@@ -17,10 +17,10 @@ servers:
 tags:
   - name: client
     description: Public Client API
-  - name: profile
-    description: Profile API (only for wolkeneis.dev frontend)
   - name: csrf-token
     description: CSRF Token API (only for wolkeneis.dev frontend)
+  - name: profile
+    description: Profile API (only for wolkeneis.dev frontend)
   - name: session
     description: Session API (only for wolkeneis.dev frontend)
 paths:
@@ -29,7 +29,7 @@ paths:
       tags:
         - profile
       summary: ''
-      operationId: fetch-self
+      operationId: fetch-profile
       responses:
         '200':
           description: OK
@@ -39,10 +39,34 @@ paths:
                 $ref: '#/components/schemas/UserProfile'
         '403':
           description: Invalid csrf token
+        '500':
+          description: Internal Server Error
       security:
         - CSRF-Token: []
         - session: []
-    parameters: []
+      description: ''
+    patch:
+      summary: ''
+      operationId: patch-profile
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                private:
+                  type: boolean
   /csrf-token:
     get:
       tags:
@@ -94,13 +118,13 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: false
               properties:
                 token:
                   type: string
               required:
                 - token
         description: ''
-      parameters: []
       security:
         - CSRF-Token: []
     delete:
@@ -115,7 +139,6 @@ paths:
           description: Invalid csrf token
         '500':
           description: Internal Server Error
-      parameters: []
       description: Endpoint for revoking a session cookie
       security:
         - session: []
@@ -250,3 +273,4 @@ components:
     bearer:
       type: http
       scheme: bearer
+  requestBodies: {}
