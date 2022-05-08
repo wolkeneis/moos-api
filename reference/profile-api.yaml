@@ -3,19 +3,19 @@ x-stoplight:
   id: ayij0380sckl9
 info:
   title: profile-api
-  version: '1.0'
+  version: "1.0"
   summary: Profile API
-  description: 'Endpoints for wolkeneis.dev frontend api calls, valid session cookie is required.'
+  description: "Endpoints for wolkeneis.dev frontend api calls, valid session cookie is required."
   contact:
     name: Admin
-    url: 'https://wolkeneis.dev/contact'
+    url: "https://wolkeneis.dev/contact"
     email: admin@wolkeneis.dev
-  termsOfService: 'https://wolkeneis.dev/privacy'
+  termsOfService: "https://wolkeneis.dev/privacy"
   license:
     name: GPL 3.0
-    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
+    url: "https://www.gnu.org/licenses/gpl-3.0.html"
 servers:
-  - url: 'https://moos.wolkeneis.dev/api/v1/profile'
+  - url: "https://moos.wolkeneis.dev/api/v1/profile"
     description: Profile Endpoint
 paths: {}
 components:
@@ -29,7 +29,7 @@ components:
       name: Session Cookie
       type: apiKey
       in: cookie
-      description: 'Session Cookie, see cookie-api.yaml.'
+      description: "Session Cookie, see cookie-api.yaml."
 security:
   - CSRF-Token: []
   - session: []

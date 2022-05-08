@@ -1,11 +1,6 @@
 {
   "description": "",
-  "formats": [
-    "oas2",
-    "oas3",
-    "oas3.0",
-    "oas3.1"
-  ],
+  "formats": ["oas2", "oas3", "oas3.0", "oas3.1"],
   "aliases": {},
   "rules": {}
 }

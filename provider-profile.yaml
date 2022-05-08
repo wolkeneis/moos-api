@@ -14,7 +14,7 @@ properties:
   avatar:
     type:
       - string
-      - 'null'
+      - "null"
     format: uri
 required:
   - provider

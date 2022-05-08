@@ -3,27 +3,27 @@ x-stoplight:
   id: ceneki1ll15ms
 info:
   title: csrf-token-api
-  version: '1.0'
+  version: "1.0"
   contact:
     name: Admin
-    url: 'https://wolkeneis.dev/contact'
+    url: "https://wolkeneis.dev/contact"
     email: admin@wolkeneis.dev
-  termsOfService: 'https://wolkeneis.dev/privacy'
+  termsOfService: "https://wolkeneis.dev/privacy"
   license:
     name: GPL 3.0
-    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
+    url: "https://www.gnu.org/licenses/gpl-3.0.html"
   summary: CSRF Token API
   description: Endpoint for requesting a CSRF Token
 servers:
-  - url: 'https://moos.wolkeneis.dev/api/v1/csrf-token'
+  - url: "https://moos.wolkeneis.dev/api/v1/csrf-token"
     description: CSRF Endpoint
 paths:
   /request:
     post:
-      summary: ''
+      summary: ""
       operationId: post-request
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -37,12 +37,12 @@ paths:
       description: Endpoint for requesting the CSRF Token
   /try:
     post:
-      summary: ''
+      summary: ""
       operationId: post-try
       responses:
-        '204':
+        "204":
           description: No Content
-        '403':
+        "403":
           description: Invalid csrf token
       security:
         - CSRF-Token: []

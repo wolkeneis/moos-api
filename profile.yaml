@@ -6,9 +6,9 @@ additionalProperties: false
 examples:
   - uid: string
     username: string
-    avatar: 'http://example.com'
+    avatar: "http://example.com"
     scopes:
-      - '*'
+      - "*"
     private: true
     clients:
       - {}
@@ -21,14 +21,14 @@ properties:
   avatar:
     type:
       - string
-      - 'null'
+      - "null"
     format: uri
   scopes:
     type: array
     items:
       type: string
       enum:
-        - '*'
+        - "*"
   private:
     type: boolean
   providers:
