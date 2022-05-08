@@ -1,6 +1,4 @@
 openapi: 3.1.0
-x-stoplight:
-  id: r68mpnv8q54dq
 info:
   title: moos-api
   version: '1.0'
@@ -13,7 +11,6 @@ info:
     url: 'https://wolkeneis.dev/contact'
   termsOfService: 'https://wolkeneis.dev/privacy'
   description: Moos API 1.0
-  summary: Moos API
 servers:
   - url: 'https://moos.wolkeneis.dev/api/v1'
     description: V1 Endpoint
@@ -29,6 +26,8 @@ tags:
 paths:
   /profile:
     post:
+      tags:
+        - profile
       summary: ''
       operationId: fetch-self
       responses:
@@ -46,6 +45,8 @@ paths:
     parameters: []
   /csrf-token:
     get:
+      tags:
+        - csrf-token
       summary: ''
       operationId: get-csrf-token
       responses:
@@ -62,6 +63,8 @@ paths:
                   - _csrf
       description: Endpoint for requesting the CSRF Token
     post:
+      tags:
+        - csrf-token
       summary: ''
       operationId: test-csrf-token
       responses:
@@ -74,6 +77,8 @@ paths:
       description: Endpoint for testing the CSRF Token
   /session:
     post:
+      tags:
+        - session
       summary: ''
       operationId: request-session
       responses:
@@ -99,6 +104,8 @@ paths:
       security:
         - CSRF-Token: []
     delete:
+      tags:
+        - session
       summary: ''
       operationId: revoke-session
       responses:
@@ -118,8 +125,6 @@ components:
     UserProfile:
       type: object
       title: Profile
-      x-stoplight:
-        id: gkwk5kzbqypkx
       additionalProperties: false
       examples:
         - uid: string
@@ -171,8 +176,6 @@ components:
     ProviderProfile:
       type: object
       title: provider-profile
-      x-stoplight:
-        id: fplolz6h0y4s3
       additionalProperties: false
       properties:
         provider:
@@ -196,8 +199,6 @@ components:
     Client:
       type: object
       title: client
-      x-stoplight:
-        id: zec95a0wvp4t0
       additionalProperties: false
       properties:
         id:
