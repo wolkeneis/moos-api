@@ -5,7 +5,7 @@
 
 export interface paths {
   "/profile/self": {
-    post: operations["post-self"];
+    post: operations["fetch-self"];
   };
   "/csrf-token": {
     /** Endpoint for requesting the CSRF Token */
@@ -60,7 +60,7 @@ export interface components {
 }
 
 export interface operations {
-  "post-self": {
+  "fetch-self": {
     responses: {
       /** OK */
       200: {
