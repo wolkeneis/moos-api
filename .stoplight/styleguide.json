@@ -3,7 +3,7 @@
   "formats": ["oas2", "oas3", "oas3.0", "oas3.1"],
   "aliases": {},
   "rules": {},
-  "extends": ["cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29"],
+  "extends": ["cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29", "cHJqOjEyMzU4Ng@29"],
   "extendedStyleguides": [
     {
       "id": "cHJqOjEyMzU4Ng",
