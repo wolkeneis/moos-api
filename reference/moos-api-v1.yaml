@@ -62,10 +62,10 @@ paths:
       security:
         - CSRF-Token: []
       description: Endpoint for testing the CSRF Token
-  /session/request:
+  /session:
     post:
       summary: ""
-      operationId: post-request
+      operationId: request-session
       responses:
         "204":
           description: No Content
@@ -88,10 +88,9 @@ paths:
       parameters: []
       security:
         - CSRF-Token: []
-  /session/revoke:
     delete:
       summary: ""
-      operationId: delete-revoke
+      operationId: revoke-session
       responses:
         "204":
           description: No Content

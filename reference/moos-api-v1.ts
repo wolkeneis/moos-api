@@ -11,15 +11,13 @@ export interface paths {
     /** Endpoint for requesting the CSRF Token */
     get: operations["get-csrf-token"];
     /** Endpoint for testing the CSRF Token */
-    post: operations["post-csrf-token"];
+    post: operations["test-csrf-token"];
   };
-  "/session/request": {
+  "/session": {
     /** Endpoint for requesting a session cookie */
-    post: operations["post-request"];
-  };
-  "/session/revoke": {
+    post: operations["request-session"];
     /** Endpoint for revoking a session cookie */
-    delete: operations["delete-revoke"];
+    delete: operations["revoke-session"];
   };
 }
 
@@ -88,7 +86,7 @@ export interface operations {
     };
   };
   /** Endpoint for testing the CSRF Token */
-  "post-csrf-token": {
+  "test-csrf-token": {
     responses: {
       /** No Content */
       204: never;
@@ -97,7 +95,7 @@ export interface operations {
     };
   };
   /** Endpoint for requesting a session cookie */
-  "post-request": {
+  "request-session": {
     parameters: {};
     responses: {
       /** No Content */
@@ -116,7 +114,7 @@ export interface operations {
     };
   };
   /** Endpoint for revoking a session cookie */
-  "delete-revoke": {
+  "revoke-session": {
     parameters: {};
     responses: {
       /** No Content */
