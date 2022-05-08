@@ -1,0 +1,240 @@
+openapi: 3.1.0
+x-stoplight:
+  id: r68mpnv8q54dq
+info:
+  title: moos-api
+  version: '1.0'
+  license:
+    name: GPL 3.0
+    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
+  contact:
+    name: Admin
+    email: admin@wolkeneis.dev
+    url: 'https://wolkeneis.dev/contact'
+  termsOfService: 'https://wolkeneis.dev/privacy'
+  description: Moos API 1.0
+  summary: Moos API
+servers:
+  - url: 'https://moos.wolkeneis.dev/api/v1'
+    description: V1 Endpoint
+paths:
+  /profile/self:
+    post:
+      summary: ''
+      operationId: post-self
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../profile.yaml
+        '403':
+          description: Invalid csrf token
+  /csrf-token/request:
+    post:
+      summary: ''
+      operationId: post-request
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _csrf:
+                    type: string
+                required:
+                  - _csrf
+      description: Endpoint for requesting the CSRF Token
+  /csrf-token/try:
+    post:
+      summary: ''
+      operationId: post-try
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Invalid csrf token
+      security:
+        - CSRF-Token: []
+  /session/request:
+    post:
+      summary: ''
+      operationId: post-request
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '403':
+          description: Invalid csrf token
+      description: Endpoint for requesting a session cookie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+              required:
+                - token
+        description: ''
+      parameters: []
+  /session/revoke:
+    delete:
+      summary: ''
+      operationId: delete-revoke
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Invalid csrf token
+        '500':
+          description: Internal Server Error
+      parameters:
+        - schema:
+            type: string
+          in: cookie
+          name: session
+          description: 'The session cookie to revoke. '
+          required: true
+      description: Endpoint for revoking a session cookie
+components:
+  schemas:
+    UserProfile:
+      type: object
+      title: Profile
+      x-stoplight:
+        id: gkwk5kzbqypkx
+      additionalProperties: false
+      examples:
+        - uid: string
+          username: string
+          avatar: 'http://example.com'
+          scopes:
+            - '*'
+          private: true
+          clients:
+            - {}
+          creationDate: 0
+      properties:
+        uid:
+          type: string
+        username:
+          type: string
+        avatar:
+          type:
+            - string
+            - 'null'
+          format: uri
+        scopes:
+          type: array
+          items:
+            type: string
+            enum:
+              - '*'
+        private:
+          type: boolean
+        providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProviderProfile'
+        clients:
+          type: array
+          items:
+            type: string
+        creationDate:
+          type: integer
+          format: int64
+      required:
+        - uid
+        - username
+        - avatar
+        - scopes
+        - private
+        - clients
+        - creationDate
+    ProviderProfile:
+      type: object
+      title: provider-profile
+      x-stoplight:
+        id: fplolz6h0y4s3
+      additionalProperties: false
+      properties:
+        provider:
+          type: string
+          enum:
+            - discord
+        providerId:
+          type: string
+        username:
+          type: string
+        avatar:
+          type:
+            - string
+            - 'null'
+          format: uri
+      required:
+        - provider
+        - providerId
+        - username
+        - avatar
+    Client:
+      type: object
+      title: client
+      x-stoplight:
+        id: zec95a0wvp4t0
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        redirectUri:
+          type: string
+          format: uri
+        owner:
+          type: string
+        trusted:
+          type: boolean
+          default: false
+        creationDate:
+          type: integer
+          format: int64
+      required:
+        - id
+        - name
+        - redirectUri
+        - owner
+        - trusted
+        - creationDate
+  securitySchemes:
+    CSRF-Token:
+      name: CSRF Token
+      type: apiKey
+      in: header
+    session:
+      name: Session Cookie
+      type: apiKey
+      in: cookie
+      description: 'Session Cookie, see cookie-api.yaml.'
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          tokenUrl: 'https://moos.wolkeneis.dev/oauth2/token'
+          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
+          scopes:
+            '*': ''
+          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
+        implicit:
+          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
+          scopes:
+            '*': ''
+          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
+    bearer:
+      type: http
+      scheme: bearer
