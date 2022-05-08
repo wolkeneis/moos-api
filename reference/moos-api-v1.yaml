@@ -53,7 +53,7 @@ paths:
       description: Endpoint for requesting the CSRF Token
     post:
       summary: ""
-      operationId: test-csrf-token
+      operationId: post-csrf-token
       responses:
         "204":
           description: No Content
