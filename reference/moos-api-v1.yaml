@@ -17,8 +17,17 @@ info:
 servers:
   - url: 'https://moos.wolkeneis.dev/api/v1'
     description: V1 Endpoint
+tags:
+  - name: client
+    description: Public Client API
+  - name: profile
+    description: Profile API (only for wolkeneis.dev frontend)
+  - name: csrf-token
+    description: CSRF Token API (only for wolkeneis.dev frontend)
+  - name: session
+    description: Session API (only for wolkeneis.dev frontend)
 paths:
-  /profile/self:
+  /profile:
     post:
       summary: ''
       operationId: fetch-self
@@ -34,6 +43,7 @@ paths:
       security:
         - CSRF-Token: []
         - session: []
+    parameters: []
   /csrf-token:
     get:
       summary: ''
