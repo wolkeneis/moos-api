@@ -28,7 +28,7 @@ paths:
     post:
       tags:
         - profile
-      summary: ''
+      summary: ""
       operationId: fetch-profile
       responses:
         "200":
@@ -39,21 +39,21 @@ paths:
                 $ref: "#/components/schemas/UserProfile"
         "403":
           description: Invalid csrf token
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
         - session: []
-      description: ''
+      description: ""
     patch:
-      summary: ''
+      summary: ""
       operationId: patch-profile
       responses:
-        '200':
+        "200":
           description: OK
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
@@ -124,7 +124,7 @@ paths:
                   type: string
               required:
                 - token
-        description: ''
+        description: ""
       security:
         - CSRF-Token: []
     delete:
