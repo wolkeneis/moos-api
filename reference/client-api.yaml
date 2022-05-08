@@ -3,19 +3,19 @@ x-stoplight:
   id: a2o2rot3xm5pk
 info:
   title: client-api
-  version: "1.0"
+  version: '1.0'
   license:
     name: GPL 3.0
-    url: "https://www.gnu.org/licenses/gpl-3.0.html"
+    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
   contact:
     name: Admin
     email: admin@wolkeneis.dev
-    url: "https://wolkeneis.dev/contact"
-  termsOfService: "https://wolkeneis.dev/privacy"
+    url: 'https://wolkeneis.dev/contact'
+  termsOfService: 'https://wolkeneis.dev/privacy'
   description: The Public Moos Client API
   summary: Client API
 servers:
-  - url: "https://moos.wolkeneis.dev/api"
+  - url: 'https://moos.wolkeneis.dev/api/v1/client'
     description: Client Endpoint
 paths: {}
 components:
@@ -25,16 +25,16 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          tokenUrl: "https://moos.wolkeneis.dev/oauth2/token"
-          refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
+          tokenUrl: 'https://moos.wolkeneis.dev/oauth2/token'
+          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
           scopes:
-            "*": ""
-          authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
+            '*': ''
+          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
         implicit:
-          authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
+          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
           scopes:
-            "*": ""
-          refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
+            '*': ''
+          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
     bearer:
       type: http
       scheme: bearer
