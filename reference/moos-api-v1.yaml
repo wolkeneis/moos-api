@@ -1,18 +1,18 @@
 openapi: 3.1.0
 info:
   title: moos-api
-  version: "1.0"
+  version: '1.0'
   license:
     name: GPL 3.0
-    url: "https://www.gnu.org/licenses/gpl-3.0.html"
+    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
   contact:
     name: Admin
     email: admin@wolkeneis.dev
-    url: "https://wolkeneis.dev/contact"
-  termsOfService: "https://wolkeneis.dev/privacy"
+    url: 'https://wolkeneis.dev/contact'
+  termsOfService: 'https://wolkeneis.dev/privacy'
   description: Moos API 1.0
 servers:
-  - url: "https://moos.wolkeneis.dev/api/v1"
+  - url: 'https://moos.wolkeneis.dev/api/v1'
     description: V1 Endpoint
 tags:
   - name: client
@@ -31,31 +31,31 @@ paths:
       summary: Fetch Profile
       operationId: fetch-profile
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserProfile"
-        "403":
+                $ref: '#/components/schemas/UserProfile'
+        '403':
           description: Invalid csrf token
-        "500":
+        '500':
           description: Internal Server Error
       security:
         - CSRF-Token: []
         - session: []
-      description: "Get your own Profile, if you are logged in with a session cookie"
+      description: 'Get your own Profile, if you are logged in with a session cookie'
     patch:
       tags:
         - profile
       summary: Patch Profile
       operationId: patch-profile
       responses:
-        "200":
+        '200':
           description: OK
-        "403":
+        '403':
           description: Forbidden
-        "500":
+        '500':
           description: Internal Server Error
       security:
         - CSRF-Token: []
@@ -69,15 +69,15 @@ paths:
               properties:
                 private:
                   type: boolean
-      description: "Update your own Profile information, if you are logged in with a session cookie"
+      description: 'Update your own Profile information, if you are logged in with a session cookie'
   /csrf-token:
     get:
       tags:
         - csrf-token
-      summary: ""
+      summary: ''
       operationId: get-csrf-token
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -92,12 +92,12 @@ paths:
     post:
       tags:
         - csrf-token
-      summary: ""
+      summary: ''
       operationId: test-csrf-token
       responses:
-        "204":
+        '204':
           description: No Content
-        "403":
+        '403':
           description: Invalid csrf token
       security:
         - CSRF-Token: []
@@ -106,14 +106,14 @@ paths:
     post:
       tags:
         - session
-      summary: ""
+      summary: ''
       operationId: request-session
       responses:
-        "204":
+        '204':
           description: No Content
-        "400":
+        '400':
           description: Bad Request
-        "403":
+        '403':
           description: Invalid csrf token
       description: Endpoint for requesting a session cookie
       requestBody:
@@ -127,20 +127,20 @@ paths:
                   type: string
               required:
                 - token
-        description: ""
+        description: ''
       security:
         - CSRF-Token: []
     delete:
       tags:
         - session
-      summary: ""
+      summary: ''
       operationId: revoke-session
       responses:
-        "204":
+        '204':
           description: No Content
-        "403":
+        '403':
           description: Invalid csrf token
-        "500":
+        '500':
           description: Internal Server Error
       description: Endpoint for revoking a session cookie
       security:
@@ -151,17 +151,17 @@ paths:
       summary: Fetch User Profile
       operationId: post-client-profile
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserProfile"
-        "400":
+                $ref: '#/components/schemas/UserProfile'
+        '400':
           description: Bad Request
       security:
         - oauth2:
-            - "*"
+            - '*'
         - bearer: []
       description: Fetch profile associated with the bearer token.
 components:
@@ -173,9 +173,9 @@ components:
       examples:
         - uid: string
           username: string
-          avatar: "http://example.com"
+          avatar: 'http://example.com'
           scopes:
-            - "*"
+            - '*'
           private: true
           clients:
             - {}
@@ -188,20 +188,20 @@ components:
         avatar:
           type:
             - string
-            - "null"
+            - 'null'
           format: uri
         scopes:
           type: array
           items:
             type: string
             enum:
-              - "*"
+              - '*'
         private:
           type: boolean
         providers:
           type: array
           items:
-            $ref: "#/components/schemas/ProviderProfile"
+            $ref: '#/components/schemas/ProviderProfile'
         clients:
           type: array
           items:
@@ -226,6 +226,7 @@ components:
           type: string
           enum:
             - discord
+            - google
         providerId:
           type: string
         username:
@@ -233,7 +234,7 @@ components:
         avatar:
           type:
             - string
-            - "null"
+            - 'null'
           format: uri
       required:
         - provider
@@ -281,16 +282,16 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          tokenUrl: "https://moos.wolkeneis.dev/oauth2/token"
-          refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
+          tokenUrl: 'https://moos.wolkeneis.dev/oauth2/token'
+          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
           scopes:
-            "*": ""
-          authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
+            '*': ''
+          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
         implicit:
-          authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
+          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
           scopes:
-            "*": ""
-          refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
+            '*': ''
+          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
     bearer:
       type: http
       scheme: bearer
