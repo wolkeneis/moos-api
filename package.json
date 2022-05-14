@@ -1,6 +1,6 @@
 {
   "name": "moos-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Moos API type definitions",
   "repository": {
     "type": "git",
