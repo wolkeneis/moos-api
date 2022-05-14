@@ -46,7 +46,7 @@ export interface components {
     /** provider-profile */
     ProviderProfile: {
       /** @enum {string} */
-      provider: "discord";
+      provider: "discord" | "google";
       providerId: string;
       username: string;
       /** Format: uri */
