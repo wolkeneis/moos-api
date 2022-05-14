@@ -22,9 +22,9 @@ export interface paths {
     /** Endpoint for revoking a session cookie */
     delete: operations["revoke-session"];
   };
-  "/client/profile": {
+  "/application/profile": {
     /** Fetch profile associated with the bearer token. */
-    post: operations["post-client-profile"];
+    post: operations["post-application-profile"];
   };
 }
 
@@ -39,7 +39,7 @@ export interface components {
       scopes: "*"[];
       private: boolean;
       providers?: components["schemas"]["ProviderProfile"][];
-      clients: string[];
+      applications: string[];
       /** Format: int64 */
       creationDate: number;
     };
@@ -52,8 +52,8 @@ export interface components {
       /** Format: uri */
       avatar: unknown;
     };
-    /** client */
-    Client: {
+    /** application */
+    application: {
       id: string;
       name: string;
       /** Format: uri */
@@ -153,7 +153,7 @@ export interface operations {
     };
   };
   /** Fetch profile associated with the bearer token. */
-  "post-client-profile": {
+  "post-application-profile": {
     responses: {
       /** OK */
       200: {

@@ -15,8 +15,8 @@ servers:
   - url: "https://moos.wolkeneis.dev/api/v1"
     description: V1 Endpoint
 tags:
-  - name: client
-    description: Public Client API
+  - name: application
+    description: Public Application API
   - name: csrf-token
     description: CSRF Token API (only for wolkeneis.dev frontend)
   - name: profile
@@ -146,10 +146,10 @@ paths:
       security:
         - session: []
         - CSRF-Token: []
-  /client/profile:
+  /application/profile:
     post:
       summary: Fetch User Profile
-      operationId: post-client-profile
+      operationId: post-application-profile
       responses:
         "200":
           description: OK
@@ -177,7 +177,7 @@ components:
           scopes:
             - "*"
           private: true
-          clients:
+          applications:
             - {}
           creationDate: 0
       properties:
@@ -202,7 +202,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ProviderProfile"
-        clients:
+        applications:
           type: array
           items:
             type: string
@@ -215,7 +215,7 @@ components:
         - avatar
         - scopes
         - private
-        - clients
+        - applications
         - creationDate
     ProviderProfile:
       type: object
@@ -241,9 +241,9 @@ components:
         - providerId
         - username
         - avatar
-    Client:
+    application:
       type: object
-      title: client
+      title: application
       additionalProperties: false
       properties:
         id:
