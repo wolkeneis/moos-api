@@ -147,9 +147,9 @@ paths:
         - session: []
         - CSRF-Token: []
   /application/profile:
-    post:
+    get:
       summary: Fetch User Profile
-      operationId: post-application-profile
+      operationId: get-application-profile
       responses:
         "200":
           description: OK

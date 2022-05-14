@@ -24,7 +24,7 @@ export interface paths {
   };
   "/application/profile": {
     /** Fetch profile associated with the bearer token. */
-    post: operations["post-application-profile"];
+    get: operations["get-application-profile"];
   };
 }
 
@@ -153,7 +153,7 @@ export interface operations {
     };
   };
   /** Fetch profile associated with the bearer token. */
-  "post-application-profile": {
+  "get-application-profile": {
     responses: {
       /** OK */
       200: {
