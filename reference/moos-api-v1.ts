@@ -5,7 +5,9 @@
 
 export interface paths {
   "/profile": {
+    /** Get your own Profile, if you are logged in with a session cookie */
     post: operations["fetch-profile"];
+    /** Update your own Profile information, if you are logged in with a session cookie */
     patch: operations["patch-profile"];
   };
   "/csrf-token": {
@@ -19,6 +21,10 @@ export interface paths {
     post: operations["request-session"];
     /** Endpoint for revoking a session cookie */
     delete: operations["revoke-session"];
+  };
+  "/client/profile": {
+    /** Fetch profile associated with the bearer token. */
+    post: operations["post-client-profile"];
   };
 }
 
@@ -62,6 +68,7 @@ export interface components {
 }
 
 export interface operations {
+  /** Get your own Profile, if you are logged in with a session cookie */
   "fetch-profile": {
     responses: {
       /** OK */
@@ -76,6 +83,7 @@ export interface operations {
       500: unknown;
     };
   };
+  /** Update your own Profile information, if you are logged in with a session cookie */
   "patch-profile": {
     responses: {
       /** OK */
@@ -142,6 +150,19 @@ export interface operations {
       403: unknown;
       /** Internal Server Error */
       500: unknown;
+    };
+  };
+  /** Fetch profile associated with the bearer token. */
+  "post-client-profile": {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserProfile"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
     };
   };
 }
