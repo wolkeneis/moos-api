@@ -1,13 +1,15 @@
-import * as generatedV1 from "../reference/moos-api-v1";
+import { components as _components, external as _external, operations as _operations, paths as _paths } from "../reference/moos-api-v1";
 
-enum AuthScope {
-  identify = "identify",
-  all = "*"
+declare namespace v1 {
+  export type components = _components;
+  export type external = _external;
+  export type operations = _operations;
+  export type paths = _paths;
+
+  export enum AuthScope {
+    identify = "identify",
+    all = "*"
+  }
 }
-
-const v1 = {
-  ...generatedV1,
-  AuthScope: AuthScope
-};
 
 export { v1 };
