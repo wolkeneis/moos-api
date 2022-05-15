@@ -161,6 +161,7 @@ paths:
           description: Bad Request
       security:
         - oauth2:
+            - "identify"
             - "*"
         - bearer: []
       description: Fetch profile associated with the bearer token.
@@ -285,11 +286,13 @@ components:
           tokenUrl: "https://moos.wolkeneis.dev/oauth2/token"
           refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
           scopes:
+            "identify": ""
             "*": ""
           authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
         implicit:
           authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
           scopes:
+            "identify": ""
             "*": ""
           refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
     bearer:
