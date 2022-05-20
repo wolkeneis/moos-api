@@ -53,7 +53,7 @@ export interface components {
       avatar: unknown;
     };
     /** application */
-    application: {
+    Application: {
       id: string;
       name: string;
       /** Format: uri */

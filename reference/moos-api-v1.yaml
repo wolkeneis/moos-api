@@ -242,7 +242,7 @@ components:
         - providerId
         - username
         - avatar
-    application:
+    Application:
       type: object
       title: application
       additionalProperties: false
