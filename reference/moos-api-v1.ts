@@ -26,6 +26,19 @@ export interface paths {
     /** Fetch profile associated with the bearer token. */
     get: operations["get-application-profile"];
   };
+  "/profile/file": {
+    /** Request a pre-signed download url for a file you want to download. */
+    get: operations["get-profile-file"];
+    /** Request a pre-signed upload url for a file you want to upload. */
+    post: operations["post-profile-file"];
+    /** Delete the file selected with the id parameter. */
+    delete: operations["delete-profile-file"];
+    parameters: {};
+  };
+  "/profile/files": {
+    /** Get a list of your own files, if you are logged in with a session cookie */
+    get: operations["get-profile-files"];
+  };
 }
 
 export interface components {
@@ -63,6 +76,14 @@ export interface components {
       /** Format: int64 */
       creationDate: number;
     };
+    /** File */
+    File: {
+      /** Format: uuid */
+      id: string;
+      /** Format: uri */
+      url: string;
+      creationDate?: number;
+    };
   };
   requestBodies: {};
 }
@@ -77,6 +98,8 @@ export interface operations {
           "application/json": components["schemas"]["UserProfile"];
         };
       };
+      /** Unauthorized */
+      401: unknown;
       /** Invalid csrf token */
       403: unknown;
       /** Internal Server Error */
@@ -88,6 +111,8 @@ export interface operations {
     responses: {
       /** OK */
       200: unknown;
+      /** Unauthorized */
+      401: unknown;
       /** Forbidden */
       403: unknown;
       /** Internal Server Error */
@@ -163,6 +188,88 @@ export interface operations {
       };
       /** Bad Request */
       400: unknown;
+    };
+  };
+  /** Request a pre-signed download url for a file you want to download. */
+  "get-profile-file": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["File"];
+          "application/xml": components["schemas"]["File"];
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  /** Request a pre-signed upload url for a file you want to upload. */
+  "post-profile-file": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["File"];
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Invalid CSRF Token */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  /** Delete the file selected with the id parameter. */
+  "delete-profile-file": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Unauthorized */
+      401: unknown;
+      /** Invalid CSRF Token */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  /** Get a list of your own files, if you are logged in with a session cookie */
+  "get-profile-files": {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["File"][];
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Internal Server Error */
+      500: unknown;
     };
   };
 }
