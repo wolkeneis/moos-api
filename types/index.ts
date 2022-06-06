@@ -7,7 +7,7 @@ declare namespace v1 {
 
   export enum AuthScope {
     identify = "identify",
-    files = "*",
+    files = "files",
     all = "*"
   }
 
