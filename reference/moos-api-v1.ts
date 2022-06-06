@@ -43,7 +43,7 @@ export interface paths {
 
 export interface components {
   schemas: {
-    /** Profile */
+    /** profile */
     UserProfile: {
       uid: string;
       username: string;
@@ -76,12 +76,13 @@ export interface components {
       /** Format: int64 */
       creationDate: number;
     };
-    /** File */
+    /** file */
     File: {
       /** Format: uuid */
       id: string;
       /** Format: uri */
       url: string;
+      /** Format: int64 */
       creationDate?: number;
     };
   };
