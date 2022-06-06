@@ -72,6 +72,7 @@ export interface components {
       /** Format: uri */
       redirectUri: string;
       owner: string;
+      /** @default false */
       trusted: boolean;
       /** Format: int64 */
       creationDate: number;
