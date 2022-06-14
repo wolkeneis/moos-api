@@ -251,8 +251,8 @@ paths:
                   type: boolean
                 name:
                   type: string
-                required:
-                  - id
+              required:
+                - id
       description: Update the metadata of one of your files, if you are logged in with a session cookie.
     parameters: []
   /profile/files:
