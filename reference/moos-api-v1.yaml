@@ -277,6 +277,7 @@ paths:
       description: 'Get a list of your own files, if you are logged in with a session cookie'
       security:
         - session: []
+  /profile/collection: {}
   /csrf-token:
     get:
       tags:
