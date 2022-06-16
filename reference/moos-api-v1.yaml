@@ -1203,6 +1203,9 @@ components:
         id: 5op4gnxkuagrv
       additionalProperties: false
       properties:
+        seasonId:
+          type: string
+          format: uuid
         episodeId:
           type: string
           format: uuid
@@ -1225,6 +1228,7 @@ components:
           type: integer
           format: int64
       required:
+        - seasonId
         - episodeId
         - id
         - language
