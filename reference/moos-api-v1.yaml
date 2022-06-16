@@ -282,6 +282,8 @@ paths:
         - session: []
   /profile/collection:
     put:
+      tags:
+        - profile
       summary: ""
       operationId: put-profile-collection
       responses:
@@ -325,6 +327,8 @@ paths:
                 - name
         description: ""
     post:
+      tags:
+        - profile
       summary: ""
       operationId: post-profile-collection
       responses:
@@ -360,6 +364,8 @@ paths:
               required:
                 - id
     patch:
+      tags:
+        - profile
       summary: ""
       operationId: patch-profile-collection
       responses:
@@ -402,6 +408,8 @@ paths:
               required:
                 - id
     delete:
+      tags:
+        - profile
       summary: ""
       operationId: delete-profile-collection
       responses:
@@ -434,6 +442,8 @@ paths:
                 - id
   /profile/list:
     put:
+      tags:
+        - profile
       summary: ""
       operationId: put-profile-list
       responses:
@@ -473,6 +483,8 @@ paths:
                 - index
         description: ""
     post:
+      tags:
+        - profile
       summary: ""
       operationId: post-profile-list
       responses:
@@ -508,6 +520,8 @@ paths:
               required:
                 - id
     patch:
+      tags:
+        - profile
       summary: ""
       operationId: patch-profile-list
       responses:
@@ -541,6 +555,8 @@ paths:
               required:
                 - id
     delete:
+      tags:
+        - profile
       summary: ""
       operationId: delete-profile-list
       responses:
@@ -574,6 +590,8 @@ paths:
     parameters: []
   /profile/episode:
     put:
+      tags:
+        - profile
       summary: ""
       operationId: put-profile-episode
       responses:
@@ -616,6 +634,8 @@ paths:
                 - name
         description: ""
     post:
+      tags:
+        - profile
       summary: ""
       operationId: post-profile-episode
       responses:
@@ -655,6 +675,8 @@ paths:
                 - seasonId
                 - id
     patch:
+      tags:
+        - profile
       summary: ""
       operationId: patch-profile-episode
       responses:
@@ -694,6 +716,8 @@ paths:
                 - seasonId
                 - id
     delete:
+      tags:
+        - profile
       summary: ""
       operationId: delete-profile-episode
       responses:
@@ -730,6 +754,8 @@ paths:
     parameters: []
   /profile/source:
     put:
+      tags:
+        - profile
       summary: ""
       operationId: put-profile-source
       responses:
@@ -783,6 +809,8 @@ paths:
                 - language
         description: ""
     post:
+      tags:
+        - profile
       summary: ""
       operationId: post-profile-source
       responses:
@@ -825,6 +853,8 @@ paths:
               required:
                 - id
     delete:
+      tags:
+        - profile
       summary: ""
       operationId: delete-profile-source
       responses:
@@ -865,6 +895,8 @@ paths:
                 - id
     parameters: []
     patch:
+      tags:
+        - profile
       summary: ""
       operationId: patch-profile-source
       responses:
