@@ -644,10 +644,14 @@ paths:
               type: object
               additionalProperties: false
               properties:
+                seasonId:
+                  type: string
+                  format: uuid
                 id:
                   type: string
                   format: uuid
               required:
+                - seasonId
                 - id
     patch:
       summary: ''
@@ -675,6 +679,9 @@ paths:
               type: object
               additionalProperties: false
               properties:
+                seasonId:
+                  type: string
+                  format: uuid
                 id:
                   type: string
                   format: uuid
@@ -683,6 +690,7 @@ paths:
                 name:
                   type: string
               required:
+                - seasonId
                 - id
     delete:
       summary: ''
@@ -710,10 +718,13 @@ paths:
               type: object
               additionalProperties: false
               properties:
+                seasonId:
+                  type: string
                 id:
                   type: string
                   format: uuid
               required:
+                - seasonId
                 - id
     parameters: []
   /profile/source:
