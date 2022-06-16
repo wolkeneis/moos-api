@@ -141,11 +141,13 @@ export interface components {
     /** Source */
     Source: {
       /** Format: uuid */
+      seasonId: string;
+      /** Format: uuid */
       episodeId: string;
       /** Format: uuid */
       id: string;
       language: components["schemas"]["Language"];
-      name: string;
+      name?: string;
       /** Format: uri */
       url?: string;
       /** Format: uuid */
@@ -622,7 +624,7 @@ export interface operations {
           /** Format: uuid */
           seasonId: string;
           index: number;
-          name?: string;
+          name: string;
         };
       };
     };
@@ -719,7 +721,7 @@ export interface operations {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Episode"];
+          "application/json": components["schemas"]["Source"];
         };
       };
       /** Bad Request */
@@ -736,6 +738,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
+          /** Format: uuid */
           seasonId: string;
           /** Format: uuid */
           episodeId: string;
@@ -802,6 +805,10 @@ export interface operations {
       content: {
         "application/json": {
           /** Format: uuid */
+          seasonId: string;
+          /** Format: uuid */
+          episodeId: string;
+          /** Format: uuid */
           id: string;
         };
       };
@@ -826,6 +833,10 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
+          /** Format: uuid */
+          seasonId: string;
+          /** Format: uuid */
+          episodeId: string;
           /** Format: uuid */
           id: string;
           language?: components["schemas"]["Language"];
