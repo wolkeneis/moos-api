@@ -738,7 +738,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Episode'
+                $ref: '#/components/schemas/Source'
         '400':
           description: Bad Request
         '401':
