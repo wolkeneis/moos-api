@@ -129,6 +129,8 @@ export interface components {
     };
     Episode: {
       /** Format: uuid */
+      seasonId: string;
+      /** Format: uuid */
       id: string;
       index: number;
       name: string;
@@ -138,9 +140,11 @@ export interface components {
     };
     /** Source */
     Source: {
-      language: components["schemas"]["Language"];
+      /** Format: uuid */
+      episodeId: string;
       /** Format: uuid */
       id: string;
+      language: components["schemas"]["Language"];
       name: string;
       /** Format: uri */
       url?: string;
@@ -159,6 +163,8 @@ export interface components {
     Language: "en_EN" | "de_DE" | "ja_JP";
     /** Season */
     Season: {
+      /** Format: uuid */
+      collectionId: string;
       /** Format: uuid */
       id: string;
       index: number;
@@ -730,6 +736,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
+          seasonId: string;
           /** Format: uuid */
           episodeId: string;
           language: components["schemas"]["Language"];
