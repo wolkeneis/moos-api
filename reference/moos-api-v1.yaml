@@ -330,6 +330,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonGroup'
         '400':
           description: Bad Request
         '401':
@@ -340,18 +344,545 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
     patch:
       summary: ''
       operationId: patch-profile-collection
       responses:
-        '200':
-          description: OK
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                visibility:
+                  type: string
+                  enum:
+                    - public
+                    - private
+                    - unlisted
+                thumbnail:
+                  type: string
+                  format: uuid
+              required:
+                - id
     delete:
       summary: ''
       operationId: delete-profile-collection
       responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
+  /profile/list:
+    put:
+      summary: ''
+      operationId: put-profile-list
+      responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Season'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                groupId:
+                  type: string
+                  format: uuid
+                index:
+                  type: integer
+              required:
+                - groupId
+                - index
+        description: ''
+    post:
+      summary: ''
+      operationId: post-profile-list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Season'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
+    patch:
+      summary: ''
+      operationId: patch-profile-list
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                index:
+                  type: integer
+              required:
+                - id
+    delete:
+      summary: ''
+      operationId: delete-profile-list
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
+    parameters: []
+  /profile/episode:
+    put:
+      summary: ''
+      operationId: put-profile-episode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                seasonId:
+                  type: string
+                  format: uuid
+                index:
+                  type: integer
+                name:
+                  type: string
+              required:
+                - seasonId
+                - index
+        description: ''
+    post:
+      summary: ''
+      operationId: post-profile-episode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
+    patch:
+      summary: ''
+      operationId: patch-profile-episode
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                index:
+                  type: integer
+                name:
+                  type: string
+              required:
+                - id
+    delete:
+      summary: ''
+      operationId: delete-profile-episode
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
+    parameters: []
+  /profile/source:
+    put:
+      summary: ''
+      operationId: put-profile-source
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Episode'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                episodeId:
+                  type: string
+                  format: uuid
+                language:
+                  $ref: '#/components/schemas/Language'
+                name:
+                  type: string
+                url:
+                  type: string
+                  format: uri
+                key:
+                  type: string
+                  format: uuid
+                subtitles:
+                  $ref: '#/components/schemas/Language'
+              required:
+                - episodeId
+                - language
+        description: ''
+    post:
+      summary: ''
+      operationId: post-profile-source
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                required:
+                  - url
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
+    delete:
+      summary: ''
+      operationId: delete-profile-source
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              required:
+                - id
+    parameters: []
+    patch:
+      summary: ''
+      operationId: patch-profile-source
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+        - CSRF-Token: []
+        - session: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                language:
+                  $ref: '#/components/schemas/Language'
+                name:
+                  type: string
+                url:
+                  type: string
+                  format: uri
+                key:
+                  type: string
+                  format: uuid
+                subtitles:
+                  $ref: '#/components/schemas/Language'
+              required:
+                - id
   /csrf-token:
     get:
       tags:
@@ -638,6 +1169,9 @@ components:
       properties:
         language:
           $ref: '#/components/schemas/Language'
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         url:
@@ -653,6 +1187,7 @@ components:
           format: int64
       required:
         - language
+        - id
         - name
         - creationDate
     Language:
@@ -680,8 +1215,10 @@ components:
           type: integer
         episodes:
           type: array
+          uniqueItems: true
           items:
-            $ref: '#/components/schemas/Episode'
+            type: string
+            format: uuid
         languages:
           type: array
           items:
