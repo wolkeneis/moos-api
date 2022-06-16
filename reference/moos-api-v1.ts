@@ -179,6 +179,8 @@ export interface components {
       seasons: string[];
       /** Format: uuid */
       thumbnail?: string;
+      /** Format: uuid */
+      owner: string;
       /** Format: int64 */
       creationDate: number;
     };
