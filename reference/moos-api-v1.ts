@@ -179,7 +179,6 @@ export interface components {
       seasons: string[];
       /** Format: uuid */
       thumbnail?: string;
-      /** Format: uuid */
       owner: string;
       /** Format: int64 */
       creationDate: number;
@@ -646,6 +645,8 @@ export interface operations {
       content: {
         "application/json": {
           /** Format: uuid */
+          seasonId: string;
+          /** Format: uuid */
           id: string;
         };
       };
@@ -670,6 +671,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
+          seasonId: string;
           /** Format: uuid */
           id: string;
         };
@@ -695,6 +697,8 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
+          /** Format: uuid */
+          seasonId: string;
           /** Format: uuid */
           id: string;
           index?: number;
