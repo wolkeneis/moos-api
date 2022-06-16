@@ -25,6 +25,33 @@ export interface paths {
     /** Get a list of your own files, if you are logged in with a session cookie */
     post: operations["get-profile-files"];
   };
+  "/profile/collection": {
+    put: operations["put-profile-collection"];
+    post: operations["post-profile-collection"];
+    delete: operations["delete-profile-collection"];
+    patch: operations["patch-profile-collection"];
+  };
+  "/profile/list": {
+    put: operations["put-profile-list"];
+    post: operations["post-profile-list"];
+    delete: operations["delete-profile-list"];
+    patch: operations["patch-profile-list"];
+    parameters: {};
+  };
+  "/profile/episode": {
+    put: operations["put-profile-episode"];
+    post: operations["post-profile-episode"];
+    delete: operations["delete-profile-episode"];
+    patch: operations["patch-profile-episode"];
+    parameters: {};
+  };
+  "/profile/source": {
+    put: operations["put-profile-source"];
+    post: operations["post-profile-source"];
+    delete: operations["delete-profile-source"];
+    patch: operations["patch-profile-source"];
+    parameters: {};
+  };
   "/csrf-token": {
     /** Endpoint for requesting the CSRF Token */
     get: operations["get-csrf-token"];
@@ -99,6 +126,61 @@ export interface components {
       creationDate: number;
       /** Format: int64 */
       lastModified: number;
+    };
+    Episode: {
+      /** Format: uuid */
+      id: string;
+      index: number;
+      name: string;
+      sources: components["schemas"]["Source"][];
+      /** Format: int64 */
+      creationDate: number;
+    };
+    /** Source */
+    Source: {
+      language: components["schemas"]["Language"];
+      /** Format: uuid */
+      id: string;
+      name: string;
+      /** Format: uri */
+      url?: string;
+      /** Format: uuid */
+      key?: string;
+      subtitles?: components["schemas"]["Language"];
+      /** Format: int64 */
+      creationDate: number;
+    };
+    /**
+     * Language
+     * @default en_EN
+     * @example de_DE
+     * @enum {string}
+     */
+    Language: "en_EN" | "de_DE" | "ja_JP";
+    /** Season */
+    Season: {
+      /** Format: uuid */
+      id: string;
+      index: number;
+      episodes: string[];
+      languages: components["schemas"]["Language"][];
+      subtitles: components["schemas"]["Language"][];
+    };
+    /** SeasonGroup */
+    SeasonGroup: {
+      /** Format: uuid */
+      id: string;
+      name: string;
+      /**
+       * @default private
+       * @enum {string}
+       */
+      visibility: "private" | "public" | "unlisted";
+      seasons: string[];
+      /** Format: uuid */
+      thumbnail?: string;
+      /** Format: int64 */
+      creationDate: number;
     };
   };
   requestBodies: {};
@@ -200,6 +282,8 @@ export interface operations {
       400: unknown;
       /** Unauthorized */
       401: unknown;
+      /** Forbidden */
+      403: unknown;
       /** Not Found */
       404: unknown;
       /** Internal Server Error */
@@ -260,10 +344,9 @@ export interface operations {
       content: {
         "application/json": {
           /** Format: uuid */
-          id?: string;
+          id: string;
           private?: boolean;
           name?: string;
-          required?: unknown;
         };
       };
     };
@@ -281,6 +364,466 @@ export interface operations {
       401: unknown;
       /** Internal Server Error */
       500: unknown;
+    };
+  };
+  "put-profile-collection": {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SeasonGroup"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          name: string;
+          /**
+           * @default private
+           * @enum {string}
+           */
+          visibility?: "private" | "public" | "unlisted";
+          /** Format: uri */
+          thumbnail?: string;
+        };
+      };
+    };
+  };
+  "post-profile-collection": {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SeasonGroup"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "delete-profile-collection": {
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "patch-profile-collection": {
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+          name?: string;
+          /** @enum {string} */
+          visibility?: "public" | "private" | "unlisted";
+          /** Format: uuid */
+          thumbnail?: string;
+        };
+      };
+    };
+  };
+  "put-profile-list": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Season"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          groupId: string;
+          index: number;
+        };
+      };
+    };
+  };
+  "post-profile-list": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Season"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "delete-profile-list": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "patch-profile-list": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+          index?: number;
+        };
+      };
+    };
+  };
+  "put-profile-episode": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Episode"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          seasonId: string;
+          index: number;
+          name?: string;
+        };
+      };
+    };
+  };
+  "post-profile-episode": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Episode"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "delete-profile-episode": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "patch-profile-episode": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+          index?: number;
+          name?: string;
+        };
+      };
+    };
+  };
+  "put-profile-source": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Episode"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          episodeId: string;
+          language: components["schemas"]["Language"];
+          name?: string;
+          /** Format: uri */
+          url?: string;
+          /** Format: uuid */
+          key?: string;
+          subtitles?: components["schemas"]["Language"];
+        };
+      };
+    };
+  };
+  "post-profile-source": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": {
+            /** Format: uri */
+            url: string;
+          };
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "delete-profile-source": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+        };
+      };
+    };
+  };
+  "patch-profile-source": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          id: string;
+          language?: components["schemas"]["Language"];
+          name?: string;
+          /** Format: uri */
+          url?: string;
+          /** Format: uuid */
+          key?: string;
+          subtitles?: components["schemas"]["Language"];
+        };
+      };
     };
   };
   /** Endpoint for requesting the CSRF Token */
