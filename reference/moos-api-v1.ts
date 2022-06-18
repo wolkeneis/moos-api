@@ -162,7 +162,7 @@ export interface components {
      * @example de_DE
      * @enum {string}
      */
-    Language: "en_EN" | "de_DE" | "ja_JP";
+    Language: "en_EN" | "de_DE" | "ja_JP" | "zh_CN";
     /** Season */
     Season: {
       /** Format: uuid */
