@@ -13,20 +13,11 @@ export interface paths {
   "/profile/known": {
     /** Know a person */
     put: operations["put-profile-known"];
-    /** Fetch all people you know */
+    /** Get the profile of a known person. */
     post: operations["post-profile-known"];
     /** Stop knowing a person */
     delete: operations["delete-profile-known"];
     parameters: {};
-  };
-  "/profile/known/{uid}": {
-    /** Get the profile of a known person. */
-    post: operations["post-profile-known-uid"];
-    parameters: {
-      path: {
-        uid: string;
-      };
-    };
   };
   "/profile/file": {
     /** Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie. */
@@ -304,25 +295,37 @@ export interface operations {
       };
     };
   };
-  /** Fetch all people you know */
+  /** Get the profile of a known person. */
   "post-profile-known": {
     parameters: {};
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": {
-            known: string[];
-          };
-          "application/xml": components["schemas"]["File"];
+          "application/json": components["schemas"]["KnownUser"];
         };
       };
+      /** Bad Request */
+      400: unknown;
       /** Unauthorized */
       401: unknown;
       /** Forbidden */
       403: unknown;
+      /** Not Found */
+      404: unknown;
       /** Internal Server Error */
       500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * Format: uuid
+           * @default true
+           */
+          uid: string;
+        };
+      };
     };
   };
   /** Stop knowing a person */
@@ -349,32 +352,6 @@ export interface operations {
           uid: string;
         };
       };
-    };
-  };
-  /** Get the profile of a known person. */
-  "post-profile-known-uid": {
-    parameters: {
-      path: {
-        uid: string;
-      };
-    };
-    responses: {
-      /** OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["KnownUser"];
-        };
-      };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Forbidden */
-      403: unknown;
-      /** Not Found */
-      404: unknown;
-      /** Internal Server Error */
-      500: unknown;
     };
   };
   /** Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie. */
