@@ -101,7 +101,10 @@ export interface components {
       /** @default false */
       private: boolean;
       providers?: components["schemas"]["ProviderProfile"][];
-      applications: string[];
+      applications?: string[];
+      files?: string[];
+      collections?: string[];
+      known?: string[];
       /** Format: int64 */
       creationDate: number;
     };
@@ -117,6 +120,9 @@ export interface components {
       private: boolean;
       providers?: components["schemas"]["ProviderProfile"][];
       applications?: string[];
+      files?: string[];
+      collections?: string[];
+      known?: string[];
       /** Format: int64 */
       creationDate: number;
     };
