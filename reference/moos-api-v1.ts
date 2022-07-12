@@ -10,6 +10,24 @@ export interface paths {
     /** Update your own Profile information, if you are logged in with a session cookie */
     patch: operations["patch-profile"];
   };
+  "/profile/known": {
+    /** Know a person */
+    put: operations["put-profile-known"];
+    /** Fetch all people you know */
+    post: operations["post-profile-known"];
+    /** Stop knowing a person */
+    delete: operations["delete-profile-known"];
+    parameters: {};
+  };
+  "/profile/known/{uid}": {
+    /** Get the profile of a known person. */
+    post: operations["post-profile-known-uid"];
+    parameters: {
+      path: {
+        uid: string;
+      };
+    };
+  };
   "/profile/file": {
     /** Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie. */
     put: operations["put-profile-file"];
@@ -87,6 +105,21 @@ export interface components {
       /** Format: int64 */
       creationDate: number;
     };
+    /** known-profile */
+    KnownUser: {
+      /** Format: uuid */
+      uid: string;
+      username: string;
+      /** Format: uri */
+      avatar: unknown;
+      scopes?: "*"[];
+      /** @default false */
+      private: boolean;
+      providers?: components["schemas"]["ProviderProfile"][];
+      applications?: string[];
+      /** Format: int64 */
+      creationDate: number;
+    };
     /** provider-profile */
     ProviderProfile: {
       /** @enum {string} */
@@ -127,6 +160,7 @@ export interface components {
       /** Format: int64 */
       lastModified: number;
     };
+    /** episode */
     Episode: {
       /** Format: uuid */
       seasonId: string;
@@ -138,7 +172,7 @@ export interface components {
       /** Format: int64 */
       creationDate: number;
     };
-    /** Source */
+    /** source */
     Source: {
       /** Format: uuid */
       seasonId: string;
@@ -157,13 +191,13 @@ export interface components {
       creationDate: number;
     };
     /**
-     * Language
+     * language
      * @default en_EN
      * @example de_DE
      * @enum {string}
      */
     Language: "en_EN" | "de_DE" | "ja_JP" | "zh_CN";
-    /** Season */
+    /** season */
     Season: {
       /** Format: uuid */
       collectionId: string;
@@ -174,7 +208,7 @@ export interface components {
       languages: components["schemas"]["Language"][];
       subtitles: components["schemas"]["Language"][];
     };
-    /** SeasonGroup */
+    /** season-group */
     SeasonGroup: {
       /** Format: uuid */
       id: string;
@@ -235,6 +269,108 @@ export interface operations {
       };
     };
   };
+  /** Know a person */
+  "put-profile-known": {
+    parameters: {};
+    responses: {
+      /** Created */
+      201: unknown;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Invalid CSRF Token */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * Format: uuid
+           * @default true
+           */
+          uid: string;
+        };
+      };
+    };
+  };
+  /** Fetch all people you know */
+  "post-profile-known": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": {
+            known: string[];
+          };
+          "application/xml": components["schemas"]["File"];
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  /** Stop knowing a person */
+  "delete-profile-known": {
+    parameters: {};
+    responses: {
+      /** No Content */
+      204: never;
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Invalid CSRF Token */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** Format: uuid */
+          uid: string;
+        };
+      };
+    };
+  };
+  /** Get the profile of a known person. */
+  "post-profile-known-uid": {
+    parameters: {
+      path: {
+        uid: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["KnownUser"];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
   /** Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie. */
   "put-profile-file": {
     parameters: {};
@@ -252,6 +388,8 @@ export interface operations {
           };
         };
       };
+      /** Bad Request */
+      400: unknown;
       /** Unauthorized */
       401: unknown;
       /** Invalid CSRF Token */
@@ -318,10 +456,14 @@ export interface operations {
     responses: {
       /** No Content */
       204: never;
+      /** Bad Request */
+      400: unknown;
       /** Unauthorized */
       401: unknown;
       /** Invalid CSRF Token */
       403: unknown;
+      /** Not Found */
+      404: unknown;
       /** Internal Server Error */
       500: unknown;
     };
@@ -346,6 +488,8 @@ export interface operations {
       401: unknown;
       /** Forbidden */
       403: unknown;
+      /** Not Found */
+      404: unknown;
       /** Internal Server Error */
       500: unknown;
     };
