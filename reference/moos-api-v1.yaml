@@ -46,7 +46,7 @@ paths:
       security:
         - CSRF-Token: []
         - session: []
-      description: 'Get your own Profile, if you are logged in with a session cookie'
+      description: Get your own Profile.
     patch:
       tags:
         - profile
@@ -75,41 +75,51 @@ paths:
               properties:
                 private:
                   type: boolean
-      description: 'Update your own Profile information, if you are logged in with a session cookie'
-  /profile/friend:
+      description: Update your own Profile information.
+  /profile/applications:
     post:
-      summary: Fetch friend profile
+      summary: Fetch Applications
       tags:
         - profile
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                uid:
-                  type: string
-                  default: true
-                  format: uuid
-              required:
-                - uid
-        description: ''
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Friend'
-        '400':
-          description: Bad Request
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
         '401':
           description: Unauthorized
         '403':
           description: Forbidden
-        '404':
-          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-profile-applicatins
+      security:
+        - CSRF-Token: []
+        - session: []
+      description: Get the profile of a friend.
+    parameters: []
+  /profile/friends:
+    post:
+      summary: Fetch Profile of a friend
+      tags:
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Friend'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
         '500':
           description: Internal Server Error
       operationId: post-profile-friend
@@ -117,6 +127,15 @@ paths:
         - CSRF-Token: []
         - session: []
       description: Get the profile of a friend.
+    parameters: []
+  '/profile/friend/{friendId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: friendId
+        in: path
+        required: true
     delete:
       summary: Remove Friend
       operationId: delete-profile-friend
@@ -137,37 +156,11 @@ paths:
         - CSRF-Token: []
         - session: []
       description: End a friendship.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                uid:
-                  type: string
-                  format: uuid
-              required:
-                - uid
       tags:
         - profile
     put:
       summary: Add Friend
       operationId: put-profile-friend
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                uid:
-                  type: string
-                  default: true
-                  format: uuid
-              required:
-                - uid
-        description: ''
       responses:
         '201':
           description: Created
@@ -187,7 +180,171 @@ paths:
       description: Begin a friendship.
       tags:
         - profile
-    parameters: []
+  '/profile/friend/{friendId}/applications':
+    post:
+      summary: List all Applications of a friend
+      tags:
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-profile-friend-applications
+      description: 'Get a list of the applications of a friend, which you are allowed to see.'
+      security:
+        - CSRF-Token: []
+        - session: []
+    parameters:
+      - schema:
+          type: string
+        name: friendId
+        in: path
+        required: true
+  '/profile/friend/{friendId}/files':
+    post:
+      summary: List all Files of a friend
+      tags:
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-profile-friend-files
+      description: 'Get a list of the files of a friend, which you are allowed to see.'
+      security:
+        - CSRF-Token: []
+        - session: []
+    parameters:
+      - schema:
+          type: string
+        name: friendId
+        in: path
+        required: true
+  '/profile/friend/{friendId}/collections':
+    post:
+      summary: List all Collections of a friend
+      tags:
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Collection'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-profile-friend-collections
+      description: 'Get a list of the collections of a friend, which you are allowed to see.'
+      security:
+        - CSRF-Token: []
+        - session: []
+    parameters:
+      - schema:
+          type: string
+        name: friendId
+        in: path
+        required: true
+  '/profile/friend/{friendId}/friends':
+    post:
+      summary: List all Friends of a friend
+      tags:
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Friend'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-profile-friend-friends
+      description: 'Get a list of the friends of a friend, which you are allowed to see.'
+      security:
+        - CSRF-Token: []
+        - session: []
+    parameters:
+      - schema:
+          type: string
+        name: friendId
+        in: path
+        required: true
+  /profile/files:
+    post:
+      summary: List all Files
+      tags:
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+      operationId: get-profile-files
+      description: Get a list of your own files.
+      security:
+        - CSRF-Token: []
+        - session: []
   /profile/file:
     post:
       summary: Get File
@@ -379,9 +536,9 @@ paths:
                 - id
       description: 'Update the metadata of one of your files, if you are logged in with a session cookie.'
     parameters: []
-  /profile/files:
+  /profile/collections:
     post:
-      summary: List all files
+      summary: List all Collections
       tags:
         - profile
       responses:
@@ -392,20 +549,24 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/File'
+                  $ref: '#/components/schemas/Collection'
         '401':
           description: Unauthorized
+        '403':
+          description: Forbidden
         '500':
           description: Internal Server Error
-      operationId: get-profile-files
-      description: 'Get a list of your own files, if you are logged in with a session cookie'
+      operationId: get-profile-collections
+      description: Get a list of your own files.
       security:
+        - CSRF-Token: []
         - session: []
+    parameters: []
   /profile/collection:
     put:
       tags:
         - profile
-      summary: ''
+      summary: Create Collection
       operationId: put-profile-collection
       responses:
         '200':
@@ -450,7 +611,7 @@ paths:
     post:
       tags:
         - profile
-      summary: ''
+      summary: Get Collection
       operationId: post-profile-collection
       responses:
         '200':
@@ -487,7 +648,7 @@ paths:
     patch:
       tags:
         - profile
-      summary: ''
+      summary: Patch Collection
       operationId: patch-profile-collection
       responses:
         '204':
@@ -531,7 +692,7 @@ paths:
     delete:
       tags:
         - profile
-      summary: ''
+      summary: Delete Collection
       operationId: delete-profile-collection
       responses:
         '204':
@@ -565,7 +726,7 @@ paths:
     put:
       tags:
         - profile
-      summary: ''
+      summary: Create Season
       operationId: put-profile-season
       responses:
         '200':
@@ -606,7 +767,7 @@ paths:
     post:
       tags:
         - profile
-      summary: ''
+      summary: Get Season
       operationId: post-profile-season
       responses:
         '200':
@@ -643,7 +804,7 @@ paths:
     patch:
       tags:
         - profile
-      summary: ''
+      summary: Patch Season
       operationId: patch-profile-season
       responses:
         '204':
@@ -678,7 +839,7 @@ paths:
     delete:
       tags:
         - profile
-      summary: ''
+      summary: Delete Season
       operationId: delete-profile-season
       responses:
         '204':
@@ -713,7 +874,7 @@ paths:
     put:
       tags:
         - profile
-      summary: ''
+      summary: Create Episode
       operationId: put-profile-episode
       responses:
         '200':
@@ -757,7 +918,7 @@ paths:
     post:
       tags:
         - profile
-      summary: ''
+      summary: Get Episode
       operationId: post-profile-episode
       responses:
         '200':
@@ -798,7 +959,7 @@ paths:
     patch:
       tags:
         - profile
-      summary: ''
+      summary: Patch Episode
       operationId: patch-profile-episode
       responses:
         '204':
@@ -839,7 +1000,7 @@ paths:
     delete:
       tags:
         - profile
-      summary: ''
+      summary: Delete Episode
       operationId: delete-profile-episode
       responses:
         '204':
@@ -877,7 +1038,7 @@ paths:
     put:
       tags:
         - profile
-      summary: ''
+      summary: Create Source
       operationId: put-profile-source
       responses:
         '200':
@@ -932,7 +1093,7 @@ paths:
     post:
       tags:
         - profile
-      summary: ''
+      summary: Get Source
       operationId: post-profile-source
       responses:
         '200':
@@ -976,7 +1137,7 @@ paths:
     delete:
       tags:
         - profile
-      summary: ''
+      summary: Delete Source
       operationId: delete-profile-source
       responses:
         '204':
@@ -1018,7 +1179,7 @@ paths:
     patch:
       tags:
         - profile
-      summary: ''
+      summary: Patch Source
       operationId: patch-profile-source
       responses:
         '204':
@@ -1072,7 +1233,7 @@ paths:
     get:
       tags:
         - csrf-token
-      summary: ''
+      summary: Request CSRF-Token
       operationId: get-csrf-token
       responses:
         '200':
@@ -1090,7 +1251,7 @@ paths:
     post:
       tags:
         - csrf-token
-      summary: ''
+      summary: Test CSRF-Token
       operationId: test-csrf-token
       responses:
         '204':
@@ -1104,7 +1265,7 @@ paths:
     post:
       tags:
         - session
-      summary: ''
+      summary: Request Session
       operationId: request-session
       responses:
         '204':
@@ -1131,7 +1292,7 @@ paths:
     delete:
       tags:
         - session
-      summary: ''
+      summary: Revoke Session
       operationId: revoke-session
       responses:
         '204':
@@ -1205,24 +1366,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProviderProfile'
-        applications:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            format: uuid
-        collections:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            format: uuid
-        friends:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            format: uuid
         creationDate:
           type: integer
           format: int64
@@ -1271,24 +1414,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProviderProfile'
-        applications:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            format: uuid
-        collections:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            format: uuid
-        friends:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            format: uuid
         creationDate:
           type: integer
           format: int64
