@@ -5,19 +5,71 @@
 
 export interface paths {
   "/profile": {
-    /** Get your own Profile, if you are logged in with a session cookie */
+    /** Get your own Profile. */
     post: operations["fetch-profile"];
-    /** Update your own Profile information, if you are logged in with a session cookie */
+    /** Update your own Profile information. */
     patch: operations["patch-profile"];
   };
-  "/profile/friend": {
+  "/profile/applications": {
+    /** Get a list of your applications. */
+    post: operations["post-profile-applications"];
+    parameters: {};
+  };
+  "/profile/friends": {
+    /** Get a list of your friends. */
+    post: operations["post-profile-friends"];
+    parameters: {};
+  };
+  "/profile/friend/{friendId}": {
     /** Begin a friendship. */
     put: operations["put-profile-friend"];
-    /** Get the profile of a friend. */
-    post: operations["post-profile-friend"];
     /** End a friendship. */
     delete: operations["delete-profile-friend"];
-    parameters: {};
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+  };
+  "/profile/friend/{friendId}/applications": {
+    /** Get a list of the applications of a friend, which you are allowed to see. */
+    post: operations["get-profile-friend-applications"];
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+  };
+  "/profile/friend/{friendId}/files": {
+    /** Get a list of the files of a friend, which you are allowed to see. */
+    post: operations["get-profile-friend-files"];
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+  };
+  "/profile/friend/{friendId}/collections": {
+    /** Get a list of the collections of a friend, which you are allowed to see. */
+    post: operations["get-profile-friend-collections"];
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+  };
+  "/profile/friend/{friendId}/friends": {
+    /** Get a list of the friends of a friend, which you are allowed to see. */
+    post: operations["get-profile-friend-friends"];
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+  };
+  "/profile/files": {
+    /** Get a list of your own files. */
+    post: operations["get-profile-files"];
   };
   "/profile/file": {
     /** Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie. */
@@ -30,9 +82,10 @@ export interface paths {
     patch: operations["patch-profile-file"];
     parameters: {};
   };
-  "/profile/files": {
-    /** Get a list of your own files, if you are logged in with a session cookie */
-    post: operations["get-profile-files"];
+  "/profile/collections": {
+    /** Get a list of your own files. */
+    post: operations["get-profile-collections"];
+    parameters: {};
   };
   "/profile/collection": {
     put: operations["put-profile-collection"];
@@ -92,9 +145,6 @@ export interface components {
       /** @default false */
       private: boolean;
       providers?: components["schemas"]["ProviderProfile"][];
-      applications?: string[];
-      collections?: string[];
-      friends?: string[];
       /** Format: int64 */
       creationDate: number;
     };
@@ -109,9 +159,6 @@ export interface components {
       /** @default false */
       private: boolean;
       providers?: components["schemas"]["ProviderProfile"][];
-      applications?: string[];
-      collections?: string[];
-      friends?: string[];
       /** Format: int64 */
       creationDate: number;
     };
@@ -225,7 +272,7 @@ export interface components {
 }
 
 export interface operations {
-  /** Get your own Profile, if you are logged in with a session cookie */
+  /** Get your own Profile. */
   "fetch-profile": {
     responses: {
       /** OK */
@@ -242,7 +289,7 @@ export interface operations {
       500: unknown;
     };
   };
-  /** Update your own Profile information, if you are logged in with a session cookie */
+  /** Update your own Profile information. */
   "patch-profile": {
     responses: {
       /** OK */
@@ -264,9 +311,49 @@ export interface operations {
       };
     };
   };
+  /** Get a list of your applications. */
+  "post-profile-applications": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Application"][];
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  /** Get a list of your friends. */
+  "post-profile-friends": {
+    parameters: {};
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Friend"][];
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
   /** Begin a friendship. */
   "put-profile-friend": {
-    parameters: {};
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
     responses: {
       /** Created */
       201: unknown;
@@ -281,54 +368,14 @@ export interface operations {
       /** Internal Server Error */
       500: unknown;
     };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * Format: uuid
-           * @default true
-           */
-          uid: string;
-        };
-      };
-    };
-  };
-  /** Get the profile of a friend. */
-  "post-profile-friend": {
-    parameters: {};
-    responses: {
-      /** OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Friend"];
-        };
-      };
-      /** Bad Request */
-      400: unknown;
-      /** Unauthorized */
-      401: unknown;
-      /** Forbidden */
-      403: unknown;
-      /** Not Found */
-      404: unknown;
-      /** Internal Server Error */
-      500: unknown;
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * Format: uuid
-           * @default true
-           */
-          uid: string;
-        };
-      };
-    };
   };
   /** End a friendship. */
   "delete-profile-friend": {
-    parameters: {};
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
     responses: {
       /** No Content */
       204: never;
@@ -343,13 +390,126 @@ export interface operations {
       /** Internal Server Error */
       500: unknown;
     };
-    requestBody: {
-      content: {
-        "application/json": {
-          /** Format: uuid */
-          uid: string;
+  };
+  /** Get a list of the applications of a friend, which you are allowed to see. */
+  "get-profile-friend-applications": {
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Application"][];
         };
       };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  /** Get a list of the files of a friend, which you are allowed to see. */
+  "get-profile-friend-files": {
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["File"][];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  /** Get a list of the collections of a friend, which you are allowed to see. */
+  "get-profile-friend-collections": {
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Collection"][];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  /** Get a list of the friends of a friend, which you are allowed to see. */
+  "get-profile-friend-friends": {
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Friend"][];
+        };
+      };
+      /** Bad Request */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Not Found */
+      404: unknown;
+      /** Internal Server Error */
+      500: unknown;
+    };
+  };
+  /** Get a list of your own files. */
+  "get-profile-files": {
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["File"][];
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Forbidden */
+      403: unknown;
+      /** Internal Server Error */
+      500: unknown;
     };
   };
   /** Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie. */
@@ -485,17 +645,20 @@ export interface operations {
       };
     };
   };
-  /** Get a list of your own files, if you are logged in with a session cookie */
-  "get-profile-files": {
+  /** Get a list of your own files. */
+  "get-profile-collections": {
+    parameters: {};
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["File"][];
+          "application/json": components["schemas"]["Collection"][];
         };
       };
       /** Unauthorized */
       401: unknown;
+      /** Forbidden */
+      403: unknown;
       /** Internal Server Error */
       500: unknown;
     };
