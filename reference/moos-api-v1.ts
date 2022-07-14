@@ -206,7 +206,7 @@ export interface components {
       subtitles: components["schemas"]["Language"][];
     };
     /** season-group */
-    SeasonGroup: {
+    Collection: {
       /** Format: uuid */
       id: string;
       name: string;
@@ -507,7 +507,7 @@ export interface operations {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["SeasonGroup"];
+          "application/json": components["schemas"]["Collection"];
         };
       };
       /** Bad Request */
@@ -539,7 +539,7 @@ export interface operations {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["SeasonGroup"];
+          "application/json": components["schemas"]["Collection"];
         };
       };
       /** Bad Request */

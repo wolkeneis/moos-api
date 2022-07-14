@@ -16,7 +16,7 @@ declare namespace v1 {
   export type ProviderProfile = _components["schemas"]["ProviderProfile"];
   export type Application = _components["schemas"]["Application"];
   export type File = _components["schemas"]["File"];
-  export type SeasonGroup = _components["schemas"]["SeasonGroup"];
+  export type Collection = _components["schemas"]["Collection"];
   export type Season = _components["schemas"]["Season"];
   export type Language = _components["schemas"]["Language"];
   export type Episode = _components["schemas"]["Episode"];
