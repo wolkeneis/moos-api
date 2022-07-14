@@ -10,13 +10,13 @@ export interface paths {
     /** Update your own Profile information, if you are logged in with a session cookie */
     patch: operations["patch-profile"];
   };
-  "/profile/known": {
-    /** Know a person */
-    put: operations["put-profile-known"];
-    /** Get the profile of a known person. */
-    post: operations["post-profile-known"];
-    /** Stop knowing a person */
-    delete: operations["delete-profile-known"];
+  "/profile/friend": {
+    /** Begin a friendship. */
+    put: operations["put-profile-friend"];
+    /** Get the profile of a friend. */
+    post: operations["post-profile-friend"];
+    /** End a friendship. */
+    delete: operations["delete-profile-friend"];
     parameters: {};
   };
   "/profile/file": {
@@ -40,11 +40,11 @@ export interface paths {
     delete: operations["delete-profile-collection"];
     patch: operations["patch-profile-collection"];
   };
-  "/profile/list": {
-    put: operations["put-profile-list"];
-    post: operations["post-profile-list"];
-    delete: operations["delete-profile-list"];
-    patch: operations["patch-profile-list"];
+  "/profile/season": {
+    put: operations["put-profile-season"];
+    post: operations["post-profile-season"];
+    delete: operations["delete-profile-season"];
+    patch: operations["patch-profile-season"];
     parameters: {};
   };
   "/profile/episode": {
@@ -93,14 +93,13 @@ export interface components {
       private: boolean;
       providers?: components["schemas"]["ProviderProfile"][];
       applications?: string[];
-      files?: string[];
       collections?: string[];
-      known?: string[];
+      friends?: string[];
       /** Format: int64 */
       creationDate: number;
     };
-    /** known-profile */
-    KnownUser: {
+    /** friend */
+    Friend: {
       /** Format: uuid */
       uid: string;
       username: string;
@@ -111,9 +110,8 @@ export interface components {
       private: boolean;
       providers?: components["schemas"]["ProviderProfile"][];
       applications?: string[];
-      files?: string[];
       collections?: string[];
-      known?: string[];
+      friends?: string[];
       /** Format: int64 */
       creationDate: number;
     };
@@ -205,7 +203,7 @@ export interface components {
       languages: components["schemas"]["Language"][];
       subtitles: components["schemas"]["Language"][];
     };
-    /** season-group */
+    /** collection */
     Collection: {
       /** Format: uuid */
       id: string;
@@ -266,8 +264,8 @@ export interface operations {
       };
     };
   };
-  /** Know a person */
-  "put-profile-known": {
+  /** Begin a friendship. */
+  "put-profile-friend": {
     parameters: {};
     responses: {
       /** Created */
@@ -295,14 +293,14 @@ export interface operations {
       };
     };
   };
-  /** Get the profile of a known person. */
-  "post-profile-known": {
+  /** Get the profile of a friend. */
+  "post-profile-friend": {
     parameters: {};
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["KnownUser"];
+          "application/json": components["schemas"]["Friend"];
         };
       };
       /** Bad Request */
@@ -328,8 +326,8 @@ export interface operations {
       };
     };
   };
-  /** Stop knowing a person */
-  "delete-profile-known": {
+  /** End a friendship. */
+  "delete-profile-friend": {
     parameters: {};
     responses: {
       /** No Content */
@@ -615,7 +613,7 @@ export interface operations {
       };
     };
   };
-  "put-profile-list": {
+  "put-profile-season": {
     parameters: {};
     responses: {
       /** OK */
@@ -639,13 +637,13 @@ export interface operations {
       content: {
         "application/json": {
           /** Format: uuid */
-          groupId: string;
+          collectionId: string;
           index: number;
         };
       };
     };
   };
-  "post-profile-list": {
+  "post-profile-season": {
     parameters: {};
     responses: {
       /** OK */
@@ -674,7 +672,7 @@ export interface operations {
       };
     };
   };
-  "delete-profile-list": {
+  "delete-profile-season": {
     parameters: {};
     responses: {
       /** No Content */
@@ -699,7 +697,7 @@ export interface operations {
       };
     };
   };
-  "patch-profile-list": {
+  "patch-profile-season": {
     parameters: {};
     responses: {
       /** No Content */
