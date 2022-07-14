@@ -12,7 +12,7 @@ declare namespace v1 {
   }
 
   export type UserProfile = _components["schemas"]["UserProfile"];
-  export type KnownUserProfile = _components["schemas"]["KnownUser"];
+  export type Friend = _components["schemas"]["Friend"];
   export type ProviderProfile = _components["schemas"]["ProviderProfile"];
   export type Application = _components["schemas"]["Application"];
   export type File = _components["schemas"]["File"];
