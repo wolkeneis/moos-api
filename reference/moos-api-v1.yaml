@@ -96,11 +96,11 @@ paths:
           description: Forbidden
         '500':
           description: Internal Server Error
-      operationId: post-profile-applicatins
+      operationId: post-profile-applications
       security:
         - CSRF-Token: []
         - session: []
-      description: Get the profile of a friend.
+      description: Get a list of your applications.
     parameters: []
   /profile/friends:
     post:
@@ -122,11 +122,11 @@ paths:
           description: Forbidden
         '500':
           description: Internal Server Error
-      operationId: post-profile-friend
+      operationId: post-profile-friends
       security:
         - CSRF-Token: []
         - session: []
-      description: Get the profile of a friend.
+      description: Get a list of your friends.
     parameters: []
   '/profile/friend/{friendId}':
     parameters:
