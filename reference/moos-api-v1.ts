@@ -33,7 +33,7 @@ export interface paths {
   };
   "/profile/friend/{friendId}/applications": {
     /** Get a list of the applications of a friend, which you are allowed to see. */
-    post: operations["get-profile-friend-applications"];
+    post: operations["post-profile-friend-applications"];
     parameters: {
       path: {
         friendId: string;
@@ -42,7 +42,7 @@ export interface paths {
   };
   "/profile/friend/{friendId}/files": {
     /** Get a list of the files of a friend, which you are allowed to see. */
-    post: operations["get-profile-friend-files"];
+    post: operations["post-profile-friend-files"];
     parameters: {
       path: {
         friendId: string;
@@ -51,7 +51,7 @@ export interface paths {
   };
   "/profile/friend/{friendId}/collections": {
     /** Get a list of the collections of a friend, which you are allowed to see. */
-    post: operations["get-profile-friend-collections"];
+    post: operations["post-profile-friend-collections"];
     parameters: {
       path: {
         friendId: string;
@@ -60,7 +60,7 @@ export interface paths {
   };
   "/profile/friend/{friendId}/friends": {
     /** Get a list of the friends of a friend, which you are allowed to see. */
-    post: operations["get-profile-friend-friends"];
+    post: operations["post-profile-friend-friends"];
     parameters: {
       path: {
         friendId: string;
@@ -69,13 +69,13 @@ export interface paths {
   };
   "/profile/files": {
     /** Get a list of your own files. */
-    post: operations["get-profile-files"];
+    post: operations["post-profile-files"];
   };
   "/profile/file": {
     /** Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie. */
     put: operations["put-profile-file"];
     /** Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie. */
-    post: operations["get-profile-file"];
+    post: operations["post-profile-file"];
     /** Delete the file selected with the id parameter, if you are logged in with a session cookie. */
     delete: operations["delete-profile-file"];
     /** Update the metadata of one of your files, if you are logged in with a session cookie. */
@@ -84,7 +84,7 @@ export interface paths {
   };
   "/profile/collections": {
     /** Get a list of your own files. */
-    post: operations["get-profile-collections"];
+    post: operations["post-profile-collections"];
     parameters: {};
   };
   "/profile/collection": {
@@ -158,7 +158,7 @@ export interface components {
       scopes?: "*"[];
       /** @default false */
       private: boolean;
-      providers?: components["schemas"]["ProviderProfile"][];
+      consensual: boolean;
       /** Format: int64 */
       creationDate: number;
     };
@@ -261,7 +261,7 @@ export interface components {
        */
       visibility: "private" | "public" | "unlisted";
       seasons: string[];
-      /** Format: uuid */
+      /** Format: uri */
       thumbnail?: string;
       owner: string;
       /** Format: int64 */
@@ -392,7 +392,7 @@ export interface operations {
     };
   };
   /** Get a list of the applications of a friend, which you are allowed to see. */
-  "get-profile-friend-applications": {
+  "post-profile-friend-applications": {
     parameters: {
       path: {
         friendId: string;
@@ -418,7 +418,7 @@ export interface operations {
     };
   };
   /** Get a list of the files of a friend, which you are allowed to see. */
-  "get-profile-friend-files": {
+  "post-profile-friend-files": {
     parameters: {
       path: {
         friendId: string;
@@ -444,7 +444,7 @@ export interface operations {
     };
   };
   /** Get a list of the collections of a friend, which you are allowed to see. */
-  "get-profile-friend-collections": {
+  "post-profile-friend-collections": {
     parameters: {
       path: {
         friendId: string;
@@ -470,7 +470,7 @@ export interface operations {
     };
   };
   /** Get a list of the friends of a friend, which you are allowed to see. */
-  "get-profile-friend-friends": {
+  "post-profile-friend-friends": {
     parameters: {
       path: {
         friendId: string;
@@ -496,7 +496,7 @@ export interface operations {
     };
   };
   /** Get a list of your own files. */
-  "get-profile-files": {
+  "post-profile-files": {
     responses: {
       /** OK */
       200: {
@@ -549,7 +549,7 @@ export interface operations {
     };
   };
   /** Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie. */
-  "get-profile-file": {
+  "post-profile-file": {
     parameters: {};
     responses: {
       /** OK */
@@ -563,7 +563,6 @@ export interface operations {
             /** Format: int64 */
             ttl: number;
           };
-          "application/xml": components["schemas"]["File"];
         };
       };
       /** Bad Request */
@@ -646,7 +645,7 @@ export interface operations {
     };
   };
   /** Get a list of your own files. */
-  "get-profile-collections": {
+  "post-profile-collections": {
     parameters: {};
     responses: {
       /** OK */
@@ -689,7 +688,7 @@ export interface operations {
            * @enum {string}
            */
           visibility?: "private" | "public" | "unlisted";
-          /** Format: uri */
+          /** Format: uuid */
           thumbnail?: string;
         };
       };
