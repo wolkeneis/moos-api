@@ -261,6 +261,21 @@ export interface components {
        */
       visibility: "private" | "public" | "unlisted";
       seasons: string[];
+      owner: string;
+      /** Format: int64 */
+      creationDate: number;
+    };
+    /** collection-preview */
+    CollectionPreview: {
+      /** Format: uuid */
+      id: string;
+      name: string;
+      /**
+       * @default private
+       * @enum {string}
+       */
+      visibility: "private" | "public" | "unlisted";
+      seasons: string[];
       /** Format: uri */
       thumbnail?: string;
       owner: string;
@@ -454,7 +469,7 @@ export interface operations {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Collection"][];
+          "application/json": components["schemas"]["CollectionPreview"][];
         };
       };
       /** Bad Request */
@@ -651,7 +666,7 @@ export interface operations {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Collection"][];
+          "application/json": components["schemas"]["CollectionPreview"][];
         };
       };
       /** Unauthorized */
