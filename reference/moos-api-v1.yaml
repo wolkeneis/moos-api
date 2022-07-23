@@ -1677,12 +1677,6 @@ components:
             - private
             - public
             - unlisted
-        seasons:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-            format: uuid
         thumbnail:
           type: string
           format: uri
@@ -1695,7 +1689,6 @@ components:
         - id
         - name
         - visibility
-        - seasons
         - owner
         - creationDate
   securitySchemes:
