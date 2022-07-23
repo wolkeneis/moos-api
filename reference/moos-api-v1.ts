@@ -246,7 +246,7 @@ export interface components {
       /** Format: uuid */
       id: string;
       index: number;
-      episodes: string[];
+      episodes: components["schemas"]["Episode"][];
       languages: components["schemas"]["Language"][];
       subtitles: components["schemas"]["Language"][];
     };
@@ -260,7 +260,7 @@ export interface components {
        * @enum {string}
        */
       visibility: "private" | "public" | "unlisted";
-      seasons: string[];
+      seasons: components["schemas"]["Season"][];
       owner: string;
       /** Format: int64 */
       creationDate: number;
