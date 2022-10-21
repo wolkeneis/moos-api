@@ -275,7 +275,6 @@ export interface components {
        * @enum {string}
        */
       visibility: "private" | "public" | "unlisted";
-      seasons: string[];
       /** Format: uri */
       thumbnail?: string;
       owner: string;
