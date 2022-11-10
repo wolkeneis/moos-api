@@ -1,18 +1,18 @@
 openapi: 3.1.0
 info:
   title: moos-api
-  version: '1.0'
+  version: "1.0"
   license:
     name: GPL 3.0
-    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
+    url: "https://www.gnu.org/licenses/gpl-3.0.html"
   contact:
     name: Admin
     email: admin@wolkeneis.dev
-    url: 'https://wolkeneis.dev/contact'
-  termsOfService: 'https://wolkeneis.dev/privacy'
+    url: "https://wolkeneis.dev/contact"
+  termsOfService: "https://wolkeneis.dev/privacy"
   description: Moos API 1.0
 servers:
-  - url: 'https://moos.wolkeneis.dev/api/v1'
+  - url: "https://moos.wolkeneis.dev/api/v1"
     description: V1 Endpoint
 tags:
   - name: application
@@ -31,17 +31,17 @@ paths:
       summary: Fetch Profile
       operationId: fetch-profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserProfile'
-        '401':
+                $ref: "#/components/schemas/UserProfile"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid csrf token
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
@@ -53,15 +53,15 @@ paths:
       summary: Patch Profile
       operationId: patch-profile
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
@@ -82,19 +82,19 @@ paths:
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Application'
-        '401':
+                  $ref: "#/components/schemas/Application"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-applications
       security:
@@ -108,19 +108,19 @@ paths:
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Friend'
-        '401':
+                  $ref: "#/components/schemas/Friend"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-friends
       security:
@@ -128,7 +128,7 @@ paths:
         - session: []
       description: Get a list of your friends.
     parameters: []
-  '/profile/friend/{friendId}':
+  "/profile/friend/{friendId}":
     parameters:
       - schema:
           type: string
@@ -140,17 +140,17 @@ paths:
       summary: Remove Friend
       operationId: delete-profile-friend
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid CSRF Token
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
@@ -162,17 +162,17 @@ paths:
       summary: Add Friend
       operationId: put-profile-friend
       responses:
-        '201':
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid CSRF Token
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
@@ -180,32 +180,32 @@ paths:
       description: Begin a friendship.
       tags:
         - profile
-  '/profile/friend/{friendId}/applications':
+  "/profile/friend/{friendId}/applications":
     post:
       summary: List all Applications of a friend
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Application'
-        '400':
+                  $ref: "#/components/schemas/Application"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-friend-applications
-      description: 'Get a list of the applications of a friend, which you are allowed to see.'
+      description: "Get a list of the applications of a friend, which you are allowed to see."
       security:
         - CSRF-Token: []
         - session: []
@@ -215,32 +215,32 @@ paths:
         name: friendId
         in: path
         required: true
-  '/profile/friend/{friendId}/files':
+  "/profile/friend/{friendId}/files":
     post:
       summary: List all Files of a friend
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/File'
-        '400':
+                  $ref: "#/components/schemas/File"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-friend-files
-      description: 'Get a list of the files of a friend, which you are allowed to see.'
+      description: "Get a list of the files of a friend, which you are allowed to see."
       security:
         - CSRF-Token: []
         - session: []
@@ -250,32 +250,32 @@ paths:
         name: friendId
         in: path
         required: true
-  '/profile/friend/{friendId}/friends':
+  "/profile/friend/{friendId}/friends":
     post:
       summary: List all Friends of a friend
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Friend'
-        '400':
+                  $ref: "#/components/schemas/Friend"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-friend-friends
-      description: 'Get a list of the friends of a friend, which you are allowed to see.'
+      description: "Get a list of the friends of a friend, which you are allowed to see."
       security:
         - CSRF-Token: []
         - session: []
@@ -291,19 +291,19 @@ paths:
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/File'
-        '401':
+                  $ref: "#/components/schemas/File"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-files
       description: Get a list of your own files.
@@ -316,7 +316,7 @@ paths:
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -337,21 +337,21 @@ paths:
                   - id
                   - url
                   - ttl
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-file
       security:
         - CSRF-Token: []
         - session: []
-      description: 'Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie.'
+      description: "Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie."
       requestBody:
         content:
           application/json:
@@ -375,22 +375,22 @@ paths:
       summary: Delete File
       operationId: delete-profile-file
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid CSRF Token
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
         - session: []
-      description: 'Delete the file selected with the id parameter, if you are logged in with a session cookie.'
+      description: "Delete the file selected with the id parameter, if you are logged in with a session cookie."
       requestBody:
         content:
           application/json:
@@ -422,9 +422,9 @@ paths:
                   default: true
               required:
                 - name
-        description: ''
+        description: ""
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -445,18 +445,18 @@ paths:
                   - id
                   - url
                   - ttl
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid CSRF Token
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
         - session: []
-      description: 'Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie.'
+      description: "Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie."
       tags:
         - profile
     patch:
@@ -465,17 +465,17 @@ paths:
       summary: Patch File Metadata
       operationId: patch-profile-file
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - CSRF-Token: []
@@ -496,7 +496,7 @@ paths:
                   type: string
               required:
                 - id
-      description: 'Update the metadata of one of your files, if you are logged in with a session cookie.'
+      description: "Update the metadata of one of your files, if you are logged in with a session cookie."
     parameters: []
   /csrf-token:
     get:
@@ -505,7 +505,7 @@ paths:
       summary: Request CSRF-Token
       operationId: get-csrf-token
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -523,9 +523,9 @@ paths:
       summary: Test CSRF-Token
       operationId: test-csrf-token
       responses:
-        '204':
+        "204":
           description: No Content
-        '403':
+        "403":
           description: Invalid csrf token
       security:
         - CSRF-Token: []
@@ -537,11 +537,11 @@ paths:
       summary: Request Session
       operationId: request-session
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '403':
+        "403":
           description: Invalid csrf token
       description: Endpoint for requesting a session cookie
       requestBody:
@@ -555,7 +555,7 @@ paths:
                   type: string
               required:
                 - token
-        description: ''
+        description: ""
       security:
         - CSRF-Token: []
     delete:
@@ -564,11 +564,11 @@ paths:
       summary: Revoke Session
       operationId: revoke-session
       responses:
-        '204':
+        "204":
           description: No Content
-        '403':
+        "403":
           description: Invalid csrf token
-        '500':
+        "500":
           description: Internal Server Error
       description: Endpoint for revoking a session cookie
       security:
@@ -579,18 +579,18 @@ paths:
       summary: Fetch User Profile
       operationId: get-application-profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserProfile'
-        '400':
+                $ref: "#/components/schemas/UserProfile"
+        "400":
           description: Bad Request
       security:
         - oauth2:
             - identify
-            - '*'
+            - "*"
         - bearer: []
       description: Fetch profile associated with the bearer token.
       tags:
@@ -604,9 +604,9 @@ components:
       examples:
         - uid: string
           username: string
-          avatar: 'http://example.com'
+          avatar: "http://example.com"
           scopes:
-            - '*'
+            - "*"
           private: true
           applications:
             - {}
@@ -620,21 +620,21 @@ components:
         avatar:
           type:
             - string
-            - 'null'
+            - "null"
           format: uri
         scopes:
           type: array
           items:
             type: string
             enum:
-              - '*'
+              - "*"
         private:
           type: boolean
           default: false
         providers:
           type: array
           items:
-            $ref: '#/components/schemas/ProviderProfile'
+            $ref: "#/components/schemas/ProviderProfile"
         creationDate:
           type: integer
           format: int64
@@ -652,9 +652,9 @@ components:
       examples:
         - uid: string
           username: string
-          avatar: 'http://example.com'
+          avatar: "http://example.com"
           scopes:
-            - '*'
+            - "*"
           private: true
           applications:
             - {}
@@ -668,14 +668,14 @@ components:
         avatar:
           type:
             - string
-            - 'null'
+            - "null"
           format: uri
         scopes:
           type: array
           items:
             type: string
             enum:
-              - '*'
+              - "*"
         private:
           type: boolean
           default: false
@@ -708,7 +708,7 @@ components:
         avatar:
           type:
             - string
-            - 'null'
+            - "null"
           format: uri
       required:
         - provider
@@ -792,20 +792,20 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          tokenUrl: 'https://moos.wolkeneis.dev/oauth2/token'
-          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
+          tokenUrl: "https://moos.wolkeneis.dev/oauth2/token"
+          refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
           scopes:
-            identify: ''
-            '*': ''
-            files: ''
-          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
+            identify: ""
+            "*": ""
+            files: ""
+          authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
         implicit:
-          authorizationUrl: 'https://moos.wolkeneis.dev/oauth2/authorize'
+          authorizationUrl: "https://moos.wolkeneis.dev/oauth2/authorize"
           scopes:
-            identify: ''
-            '*': ''
-            files: ''
-          refreshUrl: 'https://moos.wolkeneis.dev/oauth2/refresh'
+            identify: ""
+            "*": ""
+            files: ""
+          refreshUrl: "https://moos.wolkeneis.dev/oauth2/refresh"
     bearer:
       type: http
       scheme: bearer
