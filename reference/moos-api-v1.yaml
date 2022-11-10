@@ -67,6 +67,7 @@ paths:
         - CSRF-Token: []
         - session: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -353,6 +354,7 @@ paths:
         - session: []
       description: "Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie."
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -392,6 +394,7 @@ paths:
         - session: []
       description: "Delete the file selected with the id parameter, if you are logged in with a session cookie."
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -409,6 +412,7 @@ paths:
       summary: Create File
       operationId: put-profile-file
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -481,6 +485,7 @@ paths:
         - CSRF-Token: []
         - session: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -545,6 +550,7 @@ paths:
           description: Invalid csrf token
       description: Endpoint for requesting a session cookie
       requestBody:
+        required: true
         content:
           application/json:
             schema:

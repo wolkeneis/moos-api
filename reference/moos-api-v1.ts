@@ -3,46 +3,47 @@
  * Do not make direct changes to the file.
  */
 
+
 /** Type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
 
-export interface paths {
+export type paths = {
   "/profile": {
     /**
-     * Fetch Profile
+     * Fetch Profile 
      * @description Get your own Profile.
      */
     post: operations["fetch-profile"];
     /**
-     * Patch Profile
+     * Patch Profile 
      * @description Update your own Profile information.
      */
     patch: operations["patch-profile"];
   };
   "/profile/applications": {
     /**
-     * Fetch Applications
+     * Fetch Applications 
      * @description Get a list of your applications.
      */
     post: operations["post-profile-applications"];
   };
   "/profile/friends": {
     /**
-     * Fetch Profile of a friend
+     * Fetch Profile of a friend 
      * @description Get a list of your friends.
      */
     post: operations["post-profile-friends"];
   };
   "/profile/friend/{friendId}": {
     /**
-     * Add Friend
+     * Add Friend 
      * @description Begin a friendship.
      */
     put: operations["put-profile-friend"];
     /**
-     * Remove Friend
+     * Remove Friend 
      * @description End a friendship.
      */
     delete: operations["delete-profile-friend"];
@@ -54,7 +55,7 @@ export interface paths {
   };
   "/profile/friend/{friendId}/applications": {
     /**
-     * List all Applications of a friend
+     * List all Applications of a friend 
      * @description Get a list of the applications of a friend, which you are allowed to see.
      */
     post: operations["post-profile-friend-applications"];
@@ -66,7 +67,7 @@ export interface paths {
   };
   "/profile/friend/{friendId}/files": {
     /**
-     * List all Files of a friend
+     * List all Files of a friend 
      * @description Get a list of the files of a friend, which you are allowed to see.
      */
     post: operations["post-profile-friend-files"];
@@ -78,7 +79,7 @@ export interface paths {
   };
   "/profile/friend/{friendId}/friends": {
     /**
-     * List all Friends of a friend
+     * List all Friends of a friend 
      * @description Get a list of the friends of a friend, which you are allowed to see.
      */
     post: operations["post-profile-friend-friends"];
@@ -90,67 +91,67 @@ export interface paths {
   };
   "/profile/files": {
     /**
-     * List all Files
+     * List all Files 
      * @description Get a list of your own files.
      */
     post: operations["post-profile-files"];
   };
   "/profile/file": {
     /**
-     * Create File
+     * Create File 
      * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie.
      */
     put: operations["put-profile-file"];
     /**
-     * Get File
+     * Get File 
      * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie.
      */
     post: operations["post-profile-file"];
     /**
-     * Delete File
+     * Delete File 
      * @description Delete the file selected with the id parameter, if you are logged in with a session cookie.
      */
     delete: operations["delete-profile-file"];
     /**
-     * Patch File Metadata
+     * Patch File Metadata 
      * @description Update the metadata of one of your files, if you are logged in with a session cookie.
      */
     patch: operations["patch-profile-file"];
   };
   "/csrf-token": {
     /**
-     * Request CSRF-Token
+     * Request CSRF-Token 
      * @description Endpoint for requesting the CSRF Token
      */
     get: operations["get-csrf-token"];
     /**
-     * Test CSRF-Token
+     * Test CSRF-Token 
      * @description Endpoint for testing the CSRF Token
      */
     post: operations["test-csrf-token"];
   };
   "/session": {
     /**
-     * Request Session
+     * Request Session 
      * @description Endpoint for requesting a session cookie
      */
     post: operations["request-session"];
     /**
-     * Revoke Session
+     * Revoke Session 
      * @description Endpoint for revoking a session cookie
      */
     delete: operations["revoke-session"];
   };
   "/application/profile": {
     /**
-     * Fetch User Profile
+     * Fetch User Profile 
      * @description Fetch profile associated with the bearer token.
      */
     get: operations["get-application-profile"];
   };
-}
+};
 
-export interface components {
+export type components = {
   schemas: {
     /** profile */
     UserProfile: {
@@ -159,10 +160,10 @@ export interface components {
       username: string;
       /** Format: uri */
       avatar: OneOf<[string, null]>;
-      scopes: "*"[];
+      scopes: ("*")[];
       /** @default false */
       private: boolean;
-      providers?: components["schemas"]["ProviderProfile"][];
+      providers?: (components["schemas"]["ProviderProfile"])[];
       /** Format: int64 */
       creationDate: number;
     };
@@ -173,7 +174,7 @@ export interface components {
       username: string;
       /** Format: uri */
       avatar: OneOf<[string, null]>;
-      scopes?: "*"[];
+      scopes?: ("*")[];
       /** @default false */
       private: boolean;
       consensual: boolean;
@@ -223,17 +224,19 @@ export interface components {
   };
   responses: never;
   parameters: never;
-  requestBodies: {};
+  requestBodies: {
+  };
   headers: never;
   pathItems: never;
-}
+};
 
 export type external = Record<string, never>;
 
-export interface operations {
+export type operations = {
+
   "fetch-profile": {
     /**
-     * Fetch Profile
+     * Fetch Profile 
      * @description Get your own Profile.
      */
     responses: {
@@ -253,10 +256,10 @@ export interface operations {
   };
   "patch-profile": {
     /**
-     * Patch Profile
+     * Patch Profile 
      * @description Update your own Profile information.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           private?: boolean;
@@ -278,14 +281,14 @@ export interface operations {
   };
   "post-profile-applications": {
     /**
-     * Fetch Applications
+     * Fetch Applications 
      * @description Get a list of your applications.
      */
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Application"][];
+          "application/json": (components["schemas"]["Application"])[];
         };
       };
       /** @description Unauthorized */
@@ -298,14 +301,14 @@ export interface operations {
   };
   "post-profile-friends": {
     /**
-     * Fetch Profile of a friend
+     * Fetch Profile of a friend 
      * @description Get a list of your friends.
      */
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Friend"][];
+          "application/json": (components["schemas"]["Friend"])[];
         };
       };
       /** @description Unauthorized */
@@ -318,7 +321,7 @@ export interface operations {
   };
   "put-profile-friend": {
     /**
-     * Add Friend
+     * Add Friend 
      * @description Begin a friendship.
      */
     responses: {
@@ -338,7 +341,7 @@ export interface operations {
   };
   "delete-profile-friend": {
     /**
-     * Remove Friend
+     * Remove Friend 
      * @description End a friendship.
      */
     responses: {
@@ -358,14 +361,14 @@ export interface operations {
   };
   "post-profile-friend-applications": {
     /**
-     * List all Applications of a friend
+     * List all Applications of a friend 
      * @description Get a list of the applications of a friend, which you are allowed to see.
      */
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Application"][];
+          "application/json": (components["schemas"]["Application"])[];
         };
       };
       /** @description Bad Request */
@@ -382,14 +385,14 @@ export interface operations {
   };
   "post-profile-friend-files": {
     /**
-     * List all Files of a friend
+     * List all Files of a friend 
      * @description Get a list of the files of a friend, which you are allowed to see.
      */
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["File"][];
+          "application/json": (components["schemas"]["File"])[];
         };
       };
       /** @description Bad Request */
@@ -406,14 +409,14 @@ export interface operations {
   };
   "post-profile-friend-friends": {
     /**
-     * List all Friends of a friend
+     * List all Friends of a friend 
      * @description Get a list of the friends of a friend, which you are allowed to see.
      */
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Friend"][];
+          "application/json": (components["schemas"]["Friend"])[];
         };
       };
       /** @description Bad Request */
@@ -430,14 +433,14 @@ export interface operations {
   };
   "post-profile-files": {
     /**
-     * List all Files
+     * List all Files 
      * @description Get a list of your own files.
      */
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["File"][];
+          "application/json": (components["schemas"]["File"])[];
         };
       };
       /** @description Unauthorized */
@@ -450,10 +453,10 @@ export interface operations {
   };
   "put-profile-file": {
     /**
-     * Create File
+     * Create File 
      * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           name: string;
@@ -488,16 +491,16 @@ export interface operations {
   };
   "post-profile-file": {
     /**
-     * Get File
+     * Get File 
      * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
           id: string;
           /**
-           * Format: int64
+           * Format: int64 
            * @default 14400
            */
           ttl?: number;
@@ -532,10 +535,10 @@ export interface operations {
   };
   "delete-profile-file": {
     /**
-     * Delete File
+     * Delete File 
      * @description Delete the file selected with the id parameter, if you are logged in with a session cookie.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -560,10 +563,10 @@ export interface operations {
   };
   "patch-profile-file": {
     /**
-     * Patch File Metadata
+     * Patch File Metadata 
      * @description Update the metadata of one of your files, if you are logged in with a session cookie.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -590,7 +593,7 @@ export interface operations {
   };
   "get-csrf-token": {
     /**
-     * Request CSRF-Token
+     * Request CSRF-Token 
      * @description Endpoint for requesting the CSRF Token
      */
     responses: {
@@ -606,7 +609,7 @@ export interface operations {
   };
   "test-csrf-token": {
     /**
-     * Test CSRF-Token
+     * Test CSRF-Token 
      * @description Endpoint for testing the CSRF Token
      */
     responses: {
@@ -618,10 +621,10 @@ export interface operations {
   };
   "request-session": {
     /**
-     * Request Session
+     * Request Session 
      * @description Endpoint for requesting a session cookie
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           token: string;
@@ -639,7 +642,7 @@ export interface operations {
   };
   "revoke-session": {
     /**
-     * Revoke Session
+     * Revoke Session 
      * @description Endpoint for revoking a session cookie
      */
     responses: {
@@ -653,7 +656,7 @@ export interface operations {
   };
   "get-application-profile": {
     /**
-     * Fetch User Profile
+     * Fetch User Profile 
      * @description Fetch profile associated with the bearer token.
      */
     responses: {
@@ -667,4 +670,4 @@ export interface operations {
       400: never;
     };
   };
-}
+};

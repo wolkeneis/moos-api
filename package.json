@@ -1,6 +1,6 @@
 {
   "name": "moos-api",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Moos API type definitions",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "homepage": "https://github.com/wolkeneis/moos-api#readme",
   "types": "types/index.ts",
   "scripts": {
-    "openapi": "openapi-typescript \"reference/**/*.yaml\" --output .",
+    "openapi": "openapi-typescript \"reference/**/*.yaml\" --additional-properties --export-type --output .",
     "lint": "eslint --ext ts .",
     "lint:fix": "yarn lint --fix",
     "pretty": "prettier --write .",
@@ -32,7 +32,10 @@
     "typescript": "^4.8.4"
   },
   "lint-staged": {
-    "*.yaml": "openapi-typescript \"reference/**/*.yaml\" --output .",
+    "*.yaml": [
+      "prettier --write",
+      "openapi-typescript \"reference/**/*.yaml\" --export-type --output ."
+    ],
     "*.{js,ts}": "eslint --ext ts --cache --fix",
     "*.{js,ts,css,md,json}": "prettier --write"
   }

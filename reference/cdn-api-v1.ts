@@ -3,15 +3,16 @@
  * Do not make direct changes to the file.
  */
 
+
 /** Type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
 
-export interface paths {
+export type paths = {
   "/profile": {
     /**
-     * Fetch Profile
+     * Fetch Profile 
      * @description Get your own Profile.
      */
     post: operations["fetch-profile"];
@@ -20,29 +21,29 @@ export interface paths {
   };
   "/file": {
     /**
-     * Create File
+     * Create File 
      * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie and have permission.
      */
     put: operations["put-profile-file"];
     /**
-     * Get File
+     * Get File 
      * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie and have permission.
      */
     post: operations["post-profile-file"];
     /**
-     * Delete File
+     * Delete File 
      * @description Delete the file selected with the id parameter, if you are logged in with a session cookie and have permission.
      */
     delete: operations["delete-profile-file"];
     /**
-     * Patch File Metadata
+     * Patch File Metadata 
      * @description Update the metadata of one of your files, if you are logged in with a session cookie and have permission.
      */
     patch: operations["patch-profile-file"];
   };
   "/collections": {
     /**
-     * List all Collections
+     * List all Collections 
      * @description Get a list of the collections, which you are allowed to see.
      */
     post: operations["post-profile-collections"];
@@ -97,9 +98,9 @@ export interface paths {
     /** Patch Subtitle */
     patch: operations["patch-profile-subtitle"];
   };
-}
+};
 
-export interface components {
+export type components = {
   schemas: {
     /** profile */
     UserProfile: {
@@ -136,8 +137,8 @@ export interface components {
       id: string;
       index: number;
       name: string;
-      sources: components["schemas"]["Source"][];
-      subtitles: components["schemas"]["Source"][];
+      sources: (components["schemas"]["Source"])[];
+      subtitles: (components["schemas"]["Source"])[];
       /** Format: int64 */
       creationDate: number;
     };
@@ -172,9 +173,9 @@ export interface components {
       creationDate: number;
     };
     /**
-     * language
-     * @default en_EN
-     * @example de_DE
+     * language 
+     * @default en_EN 
+     * @example de_DE 
      * @enum {string}
      */
     Language: "en_EN" | "de_DE" | "ja_JP" | "zh_CN";
@@ -185,9 +186,9 @@ export interface components {
       /** Format: uuid */
       id: string;
       index: number;
-      episodes: components["schemas"]["Episode"][];
-      languages: components["schemas"]["Language"][];
-      subtitles: components["schemas"]["Language"][];
+      episodes: (components["schemas"]["Episode"])[];
+      languages: (components["schemas"]["Language"])[];
+      subtitles: (components["schemas"]["Language"])[];
     };
     /** collection */
     Collection: {
@@ -195,11 +196,11 @@ export interface components {
       id: string;
       name: string;
       /**
-       * @default private
+       * @default private 
        * @enum {string}
        */
       visibility: "private" | "public" | "unlisted";
-      seasons: components["schemas"]["Season"][];
+      seasons: (components["schemas"]["Season"])[];
       owner: string;
       /** Format: int64 */
       creationDate: number;
@@ -210,7 +211,7 @@ export interface components {
       id: string;
       name: string;
       /**
-       * @default private
+       * @default private 
        * @enum {string}
        */
       visibility: "private" | "public" | "unlisted";
@@ -223,17 +224,19 @@ export interface components {
   };
   responses: never;
   parameters: never;
-  requestBodies: {};
+  requestBodies: {
+  };
   headers: never;
   pathItems: never;
-}
+};
 
 export type external = Record<string, never>;
 
-export interface operations {
+export type operations = {
+
   "fetch-profile": {
     /**
-     * Fetch Profile
+     * Fetch Profile 
      * @description Get your own Profile.
      */
     responses: {
@@ -268,10 +271,10 @@ export interface operations {
   };
   "put-profile-file": {
     /**
-     * Create File
+     * Create File 
      * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie and have permission.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           name: string;
@@ -306,16 +309,16 @@ export interface operations {
   };
   "post-profile-file": {
     /**
-     * Get File
+     * Get File 
      * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie and have permission.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
           id: string;
           /**
-           * Format: int64
+           * Format: int64 
            * @default 14400
            */
           ttl?: number;
@@ -350,10 +353,10 @@ export interface operations {
   };
   "delete-profile-file": {
     /**
-     * Delete File
+     * Delete File 
      * @description Delete the file selected with the id parameter, if you are logged in with a session cookie and have permission.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -378,10 +381,10 @@ export interface operations {
   };
   "patch-profile-file": {
     /**
-     * Patch File Metadata
+     * Patch File Metadata 
      * @description Update the metadata of one of your files, if you are logged in with a session cookie and have permission.
      */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -408,14 +411,14 @@ export interface operations {
   };
   "post-profile-collections": {
     /**
-     * List all Collections
+     * List all Collections 
      * @description Get a list of the collections, which you are allowed to see.
      */
     responses: {
       /** @description OK */
       200: {
         content: {
-          "application/json": components["schemas"]["CollectionPreview"][];
+          "application/json": (components["schemas"]["CollectionPreview"])[];
         };
       };
       /** @description Unauthorized */
@@ -428,12 +431,12 @@ export interface operations {
   };
   "put-profile-collection": {
     /** Create Collection */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           name: string;
           /**
-           * @default private
+           * @default private 
            * @enum {string}
            */
           visibility?: "private" | "public" | "unlisted";
@@ -461,7 +464,7 @@ export interface operations {
   };
   "post-profile-collection": {
     /** Get Collection */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -490,7 +493,7 @@ export interface operations {
   };
   "delete-profile-collection": {
     /** Delete Collection */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -515,7 +518,7 @@ export interface operations {
   };
   "patch-profile-collection": {
     /** Patch Collection */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -545,7 +548,7 @@ export interface operations {
   };
   "put-profile-season": {
     /** Create Season */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -575,7 +578,7 @@ export interface operations {
   };
   "post-profile-season": {
     /** Get Season */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -604,7 +607,7 @@ export interface operations {
   };
   "delete-profile-season": {
     /** Delete Season */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -629,7 +632,7 @@ export interface operations {
   };
   "patch-profile-season": {
     /** Patch Season */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -655,7 +658,7 @@ export interface operations {
   };
   "put-profile-episode": {
     /** Create Episode */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -686,7 +689,7 @@ export interface operations {
   };
   "post-profile-episode": {
     /** Get Episode */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -717,7 +720,7 @@ export interface operations {
   };
   "delete-profile-episode": {
     /** Delete Episode */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           seasonId: string;
@@ -743,7 +746,7 @@ export interface operations {
   };
   "patch-profile-episode": {
     /** Patch Episode */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -772,7 +775,7 @@ export interface operations {
   };
   "put-profile-source": {
     /** Create Source */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -807,7 +810,7 @@ export interface operations {
   };
   "post-profile-source": {
     /** Get Source */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -839,7 +842,7 @@ export interface operations {
   };
   "delete-profile-source": {
     /** Delete Source */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -868,7 +871,7 @@ export interface operations {
   };
   "patch-profile-source": {
     /** Patch Source */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -901,7 +904,7 @@ export interface operations {
   };
   "put-profile-subtitle": {
     /** Create Subtitle */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -935,7 +938,7 @@ export interface operations {
   };
   "post-profile-subtitle": {
     /** Get Subtitle */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -967,7 +970,7 @@ export interface operations {
   };
   "delete-profile-subtitle": {
     /** Delete Subtitle */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -996,7 +999,7 @@ export interface operations {
   };
   "patch-profile-subtitle": {
     /** Patch Subtitle */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": {
           /** Format: uuid */
@@ -1026,4 +1029,4 @@ export interface operations {
       500: never;
     };
   };
-}
+};
