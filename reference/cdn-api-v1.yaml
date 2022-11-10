@@ -1,15 +1,15 @@
 openapi: 3.1.0
 info:
   title: cdn-api
-  version: '1.0'
+  version: "1.0"
   license:
     name: GPL 3.0
-    url: 'https://www.gnu.org/licenses/gpl-3.0.html'
+    url: "https://www.gnu.org/licenses/gpl-3.0.html"
   contact:
     name: Admin
     email: admin@wolkeneis.dev
-    url: 'https://wolkeneis.dev/contact'
-  termsOfService: 'https://wolkeneis.dev/privacy'
+    url: "https://wolkeneis.dev/contact"
+  termsOfService: "https://wolkeneis.dev/privacy"
   description: CDN API 1.0
 tags:
   - name: application
@@ -22,17 +22,17 @@ paths:
       summary: Fetch Profile
       operationId: fetch-profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserProfile'
-        '401':
+                $ref: "#/components/schemas/UserProfile"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid csrf token
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -41,24 +41,24 @@ paths:
       summary: Logout
       operationId: delete-profile
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
-      description: ''
+      description: ""
   /file:
     post:
       summary: Get File
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -79,20 +79,20 @@ paths:
                   - id
                   - url
                   - ttl
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-file
       security:
         - session: []
-      description: 'Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie and have permission.'
+      description: "Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie and have permission."
       requestBody:
         content:
           application/json:
@@ -116,21 +116,21 @@ paths:
       summary: Delete File
       operationId: delete-profile-file
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid CSRF Token
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
-      description: 'Delete the file selected with the id parameter, if you are logged in with a session cookie and have permission.'
+      description: "Delete the file selected with the id parameter, if you are logged in with a session cookie and have permission."
       requestBody:
         content:
           application/json:
@@ -162,9 +162,9 @@ paths:
                   default: true
               required:
                 - name
-        description: ''
+        description: ""
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -185,17 +185,17 @@ paths:
                   - id
                   - url
                   - ttl
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Invalid CSRF Token
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
-      description: 'Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie and have permission.'
+      description: "Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie and have permission."
       tags:
         - profile
     patch:
@@ -204,17 +204,17 @@ paths:
       summary: Patch File Metadata
       operationId: patch-profile-file
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -234,7 +234,7 @@ paths:
                   type: string
               required:
                 - id
-      description: 'Update the metadata of one of your files, if you are logged in with a session cookie and have permission.'
+      description: "Update the metadata of one of your files, if you are logged in with a session cookie and have permission."
     parameters: []
   /collections:
     post:
@@ -242,7 +242,7 @@ paths:
       tags:
         - profile
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -250,15 +250,15 @@ paths:
                 type: array
                 uniqueItems: true
                 items:
-                  $ref: '#/components/schemas/CollectionPreview'
-        '401':
+                  $ref: "#/components/schemas/CollectionPreview"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-profile-collections
-      description: 'Get a list of the collections, which you are allowed to see.'
+      description: "Get a list of the collections, which you are allowed to see."
       security:
         - session: []
     parameters: []
@@ -269,19 +269,19 @@ paths:
       summary: Create Collection
       operationId: put-profile-collection
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Collection'
-        '400':
+                $ref: "#/components/schemas/Collection"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -306,28 +306,28 @@ paths:
                   format: uuid
               required:
                 - name
-        description: ''
+        description: ""
     post:
       tags:
         - profile
       summary: Get Collection
       operationId: post-profile-collection
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Collection'
-        '400':
+                $ref: "#/components/schemas/Collection"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -349,17 +349,17 @@ paths:
       summary: Patch Collection
       operationId: patch-profile-collection
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -392,17 +392,17 @@ paths:
       summary: Delete Collection
       operationId: delete-profile-collection
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -426,21 +426,21 @@ paths:
       summary: Create Season
       operationId: put-profile-season
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Season'
-        '400':
+                $ref: "#/components/schemas/Season"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -459,28 +459,28 @@ paths:
               required:
                 - collectionId
                 - index
-        description: ''
+        description: ""
     post:
       tags:
         - profile
       summary: Get Season
       operationId: post-profile-season
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Season'
-        '400':
+                $ref: "#/components/schemas/Season"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -502,17 +502,17 @@ paths:
       summary: Patch Season
       operationId: patch-profile-season
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -536,17 +536,17 @@ paths:
       summary: Delete Season
       operationId: delete-profile-season
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -570,21 +570,21 @@ paths:
       summary: Create Episode
       operationId: put-profile-episode
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Episode'
-        '400':
+                $ref: "#/components/schemas/Episode"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -606,28 +606,28 @@ paths:
                 - seasonId
                 - index
                 - name
-        description: ''
+        description: ""
     post:
       tags:
         - profile
       summary: Get Episode
       operationId: post-profile-episode
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Episode'
-        '400':
+                $ref: "#/components/schemas/Episode"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -653,17 +653,17 @@ paths:
       summary: Patch Episode
       operationId: patch-profile-episode
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -693,17 +693,17 @@ paths:
       summary: Delete Episode
       operationId: delete-profile-episode
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -730,21 +730,21 @@ paths:
       summary: Create Source
       operationId: put-profile-source
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Source'
-        '400':
+                $ref: "#/components/schemas/Source"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -762,24 +762,24 @@ paths:
                   type: string
                   format: uuid
                 language:
-                  $ref: '#/components/schemas/Language'
+                  $ref: "#/components/schemas/Language"
                 key:
                   type: string
                   format: uuid
                 subtitles:
-                  $ref: '#/components/schemas/Language'
+                  $ref: "#/components/schemas/Language"
               required:
                 - seasonId
                 - episodeId
                 - language
-        description: ''
+        description: ""
     post:
       tags:
         - profile
       summary: Get Source
       operationId: post-profile-source
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -792,15 +792,15 @@ paths:
                     format: uri
                 required:
                   - url
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -822,17 +822,17 @@ paths:
       summary: Delete Source
       operationId: delete-profile-source
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -863,17 +863,17 @@ paths:
       summary: Patch Source
       operationId: patch-profile-source
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -894,12 +894,12 @@ paths:
                   type: string
                   format: uuid
                 language:
-                  $ref: '#/components/schemas/Language'
+                  $ref: "#/components/schemas/Language"
                 key:
                   type: string
                   format: uuid
                 subtitles:
-                  $ref: '#/components/schemas/Language'
+                  $ref: "#/components/schemas/Language"
               required:
                 - seasonId
                 - episodeId
@@ -911,21 +911,21 @@ paths:
       summary: Create Subtitle
       operationId: put-profile-subtitle
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Source'
-        '400':
+                $ref: "#/components/schemas/Source"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -943,7 +943,7 @@ paths:
                   type: string
                   format: uuid
                 language:
-                  $ref: '#/components/schemas/Language'
+                  $ref: "#/components/schemas/Language"
                 key:
                   type: string
                   format: uuid
@@ -951,14 +951,14 @@ paths:
                 - seasonId
                 - episodeId
                 - language
-        description: ''
+        description: ""
     post:
       tags:
         - profile
       summary: Get Subtitle
       operationId: post-profile-subtitle
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -971,15 +971,15 @@ paths:
                     format: uri
                 required:
                   - url
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -1001,17 +1001,17 @@ paths:
       summary: Delete Subtitle
       operationId: delete-profile-subtitle
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -1042,17 +1042,17 @@ paths:
       summary: Patch Subtitle
       operationId: patch-profile-subtitle
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       security:
         - session: []
@@ -1073,7 +1073,7 @@ paths:
                   type: string
                   format: uuid
                 language:
-                  $ref: '#/components/schemas/Language'
+                  $ref: "#/components/schemas/Language"
                 key:
                   type: string
                   format: uuid
@@ -1090,9 +1090,9 @@ components:
       examples:
         - uid: string
           username: string
-          avatar: 'http://example.com'
+          avatar: "http://example.com"
           scopes:
-            - '*'
+            - "*"
           private: true
           applications:
             - {}
@@ -1106,7 +1106,7 @@ components:
         avatar:
           type:
             - string
-            - 'null'
+            - "null"
           format: uri
         creationDate:
           type: integer
@@ -1179,11 +1179,11 @@ components:
         sources:
           type: array
           items:
-            $ref: '#/components/schemas/Source'
+            $ref: "#/components/schemas/Source"
         subtitles:
           type: array
           items:
-            $ref: '#/components/schemas/Source'
+            $ref: "#/components/schemas/Source"
         creationDate:
           type: integer
           format: int64
@@ -1210,14 +1210,14 @@ components:
           type: string
           format: uuid
         language:
-          $ref: '#/components/schemas/Language'
+          $ref: "#/components/schemas/Language"
         name:
           type: string
         key:
           type: string
           format: uuid
         subtitles:
-          $ref: '#/components/schemas/Language'
+          $ref: "#/components/schemas/Language"
         creationDate:
           type: integer
           format: int64
@@ -1244,7 +1244,7 @@ components:
           type: string
           format: uuid
         language:
-          $ref: '#/components/schemas/Language'
+          $ref: "#/components/schemas/Language"
         key:
           type: string
           format: uuid
@@ -1284,15 +1284,15 @@ components:
           type: array
           uniqueItems: true
           items:
-            $ref: '#/components/schemas/Episode'
+            $ref: "#/components/schemas/Episode"
         languages:
           type: array
           items:
-            $ref: '#/components/schemas/Language'
+            $ref: "#/components/schemas/Language"
         subtitles:
           type: array
           items:
-            $ref: '#/components/schemas/Language'
+            $ref: "#/components/schemas/Language"
       required:
         - collectionId
         - id
@@ -1321,7 +1321,7 @@ components:
           type: array
           uniqueItems: true
           items:
-            $ref: '#/components/schemas/Season'
+            $ref: "#/components/schemas/Season"
         owner:
           type: string
         creationDate:

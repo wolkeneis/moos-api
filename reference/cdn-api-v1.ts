@@ -15,6 +15,8 @@ export interface paths {
      * @description Get your own Profile.
      */
     post: operations["fetch-profile"];
+    /** Logout */
+    delete: operations["delete-profile"];
   };
   "/file": {
     /**
@@ -244,6 +246,21 @@ export interface operations {
       /** @description Unauthorized */
       401: never;
       /** @description Invalid csrf token */
+      403: never;
+      /** @description Internal Server Error */
+      500: never;
+    };
+  };
+  "delete-profile": {
+    /** Logout */
+    responses: {
+      /** @description No Content */
+      204: never;
+      /** @description Bad Request */
+      400: never;
+      /** @description Unauthorized */
+      401: never;
+      /** @description Forbidden */
       403: never;
       /** @description Internal Server Error */
       500: never;

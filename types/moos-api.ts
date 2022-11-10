@@ -1,4 +1,4 @@
-import { components as _components, external as _external, operations as _operations, paths as _paths } from "../reference/moos-api-v1";
+import type { components as _components, external as _external, operations as _operations, paths as _paths } from "../reference/moos-api-v1";
 
 declare namespace moos_api_v1 {
   export type external = _external;
@@ -24,4 +24,4 @@ declare namespace moos_api_v1 {
   export type Source = _components["schemas"]["Source"];
 }
 
-export { moos_api_v1 };
+export type { moos_api_v1 };

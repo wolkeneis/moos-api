@@ -1,4 +1,4 @@
-import { components as _components, external as _external, operations as _operations, paths as _paths } from "../reference/cdn-api-v1";
+import type { components as _components, external as _external, operations as _operations, paths as _paths } from "../reference/cdn-api-v1";
 
 declare namespace cdn_api_v1 {
   export type external = _external;
@@ -16,4 +16,4 @@ declare namespace cdn_api_v1 {
   export type Subtitle = _components["schemas"]["Subtitle"];
 }
 
-export { cdn_api_v1 };
+export type { cdn_api_v1 };
