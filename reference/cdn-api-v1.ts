@@ -4,7 +4,7 @@
  */
 
 
-/** Type helpers */
+/** OneOf type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
@@ -99,6 +99,8 @@ export type paths = {
     patch: operations["patch-profile-subtitle"];
   };
 };
+
+export type webhooks = Record<string, never>;
 
 export type components = {
   schemas: {
@@ -234,11 +236,11 @@ export type external = Record<string, never>;
 
 export type operations = {
 
+  /**
+   * Fetch Profile 
+   * @description Get your own Profile.
+   */
   "fetch-profile": {
-    /**
-     * Fetch Profile 
-     * @description Get your own Profile.
-     */
     responses: {
       /** @description OK */
       200: {
@@ -254,8 +256,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Logout */
   "delete-profile": {
-    /** Logout */
     responses: {
       /** @description No Content */
       204: never;
@@ -269,11 +271,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Create File 
+   * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie and have permission.
+   */
   "put-profile-file": {
-    /**
-     * Create File 
-     * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie and have permission.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -307,11 +309,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Get File 
+   * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie and have permission.
+   */
   "post-profile-file": {
-    /**
-     * Get File 
-     * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie and have permission.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -351,11 +353,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Delete File 
+   * @description Delete the file selected with the id parameter, if you are logged in with a session cookie and have permission.
+   */
   "delete-profile-file": {
-    /**
-     * Delete File 
-     * @description Delete the file selected with the id parameter, if you are logged in with a session cookie and have permission.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -379,11 +381,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Patch File Metadata 
+   * @description Update the metadata of one of your files, if you are logged in with a session cookie and have permission.
+   */
   "patch-profile-file": {
-    /**
-     * Patch File Metadata 
-     * @description Update the metadata of one of your files, if you are logged in with a session cookie and have permission.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -409,11 +411,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * List all Collections 
+   * @description Get a list of the collections, which you are allowed to see.
+   */
   "post-profile-collections": {
-    /**
-     * List all Collections 
-     * @description Get a list of the collections, which you are allowed to see.
-     */
     responses: {
       /** @description OK */
       200: {
@@ -429,8 +431,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Create Collection */
   "put-profile-collection": {
-    /** Create Collection */
     requestBody: {
       content: {
         "application/json": {
@@ -462,8 +464,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Get Collection */
   "post-profile-collection": {
-    /** Get Collection */
     requestBody: {
       content: {
         "application/json": {
@@ -491,8 +493,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Delete Collection */
   "delete-profile-collection": {
-    /** Delete Collection */
     requestBody: {
       content: {
         "application/json": {
@@ -516,8 +518,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Patch Collection */
   "patch-profile-collection": {
-    /** Patch Collection */
     requestBody: {
       content: {
         "application/json": {
@@ -546,8 +548,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Create Season */
   "put-profile-season": {
-    /** Create Season */
     requestBody: {
       content: {
         "application/json": {
@@ -576,8 +578,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Get Season */
   "post-profile-season": {
-    /** Get Season */
     requestBody: {
       content: {
         "application/json": {
@@ -605,8 +607,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Delete Season */
   "delete-profile-season": {
-    /** Delete Season */
     requestBody: {
       content: {
         "application/json": {
@@ -630,8 +632,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Patch Season */
   "patch-profile-season": {
-    /** Patch Season */
     requestBody: {
       content: {
         "application/json": {
@@ -656,8 +658,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Create Episode */
   "put-profile-episode": {
-    /** Create Episode */
     requestBody: {
       content: {
         "application/json": {
@@ -687,8 +689,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Get Episode */
   "post-profile-episode": {
-    /** Get Episode */
     requestBody: {
       content: {
         "application/json": {
@@ -718,8 +720,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Delete Episode */
   "delete-profile-episode": {
-    /** Delete Episode */
     requestBody: {
       content: {
         "application/json": {
@@ -744,8 +746,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Patch Episode */
   "patch-profile-episode": {
-    /** Patch Episode */
     requestBody: {
       content: {
         "application/json": {
@@ -773,8 +775,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Create Source */
   "put-profile-source": {
-    /** Create Source */
     requestBody: {
       content: {
         "application/json": {
@@ -808,8 +810,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Get Source */
   "post-profile-source": {
-    /** Get Source */
     requestBody: {
       content: {
         "application/json": {
@@ -840,8 +842,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Delete Source */
   "delete-profile-source": {
-    /** Delete Source */
     requestBody: {
       content: {
         "application/json": {
@@ -869,8 +871,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Patch Source */
   "patch-profile-source": {
-    /** Patch Source */
     requestBody: {
       content: {
         "application/json": {
@@ -902,8 +904,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Create Subtitle */
   "put-profile-subtitle": {
-    /** Create Subtitle */
     requestBody: {
       content: {
         "application/json": {
@@ -936,8 +938,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Get Subtitle */
   "post-profile-subtitle": {
-    /** Get Subtitle */
     requestBody: {
       content: {
         "application/json": {
@@ -968,8 +970,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Delete Subtitle */
   "delete-profile-subtitle": {
-    /** Delete Subtitle */
     requestBody: {
       content: {
         "application/json": {
@@ -997,8 +999,8 @@ export type operations = {
       500: never;
     };
   };
+  /** Patch Subtitle */
   "patch-profile-subtitle": {
-    /** Patch Subtitle */
     requestBody: {
       content: {
         "application/json": {

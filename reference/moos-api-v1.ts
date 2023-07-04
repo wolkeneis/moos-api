@@ -4,7 +4,7 @@
  */
 
 
-/** Type helpers */
+/** OneOf type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
@@ -151,6 +151,8 @@ export type paths = {
   };
 };
 
+export type webhooks = Record<string, never>;
+
 export type components = {
   schemas: {
     /** profile */
@@ -234,11 +236,11 @@ export type external = Record<string, never>;
 
 export type operations = {
 
+  /**
+   * Fetch Profile 
+   * @description Get your own Profile.
+   */
   "fetch-profile": {
-    /**
-     * Fetch Profile 
-     * @description Get your own Profile.
-     */
     responses: {
       /** @description OK */
       200: {
@@ -254,11 +256,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Patch Profile 
+   * @description Update your own Profile information.
+   */
   "patch-profile": {
-    /**
-     * Patch Profile 
-     * @description Update your own Profile information.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -279,11 +281,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Fetch Applications 
+   * @description Get a list of your applications.
+   */
   "post-profile-applications": {
-    /**
-     * Fetch Applications 
-     * @description Get a list of your applications.
-     */
     responses: {
       /** @description OK */
       200: {
@@ -299,11 +301,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Fetch Profile of a friend 
+   * @description Get a list of your friends.
+   */
   "post-profile-friends": {
-    /**
-     * Fetch Profile of a friend 
-     * @description Get a list of your friends.
-     */
     responses: {
       /** @description OK */
       200: {
@@ -319,11 +321,16 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Add Friend 
+   * @description Begin a friendship.
+   */
   "put-profile-friend": {
-    /**
-     * Add Friend 
-     * @description Begin a friendship.
-     */
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
     responses: {
       /** @description Created */
       201: never;
@@ -339,11 +346,16 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Remove Friend 
+   * @description End a friendship.
+   */
   "delete-profile-friend": {
-    /**
-     * Remove Friend 
-     * @description End a friendship.
-     */
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
     responses: {
       /** @description No Content */
       204: never;
@@ -359,11 +371,16 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * List all Applications of a friend 
+   * @description Get a list of the applications of a friend, which you are allowed to see.
+   */
   "post-profile-friend-applications": {
-    /**
-     * List all Applications of a friend 
-     * @description Get a list of the applications of a friend, which you are allowed to see.
-     */
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
     responses: {
       /** @description OK */
       200: {
@@ -383,11 +400,16 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * List all Files of a friend 
+   * @description Get a list of the files of a friend, which you are allowed to see.
+   */
   "post-profile-friend-files": {
-    /**
-     * List all Files of a friend 
-     * @description Get a list of the files of a friend, which you are allowed to see.
-     */
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
     responses: {
       /** @description OK */
       200: {
@@ -407,11 +429,16 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * List all Friends of a friend 
+   * @description Get a list of the friends of a friend, which you are allowed to see.
+   */
   "post-profile-friend-friends": {
-    /**
-     * List all Friends of a friend 
-     * @description Get a list of the friends of a friend, which you are allowed to see.
-     */
+    parameters: {
+      path: {
+        friendId: string;
+      };
+    };
     responses: {
       /** @description OK */
       200: {
@@ -431,11 +458,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * List all Files 
+   * @description Get a list of your own files.
+   */
   "post-profile-files": {
-    /**
-     * List all Files 
-     * @description Get a list of your own files.
-     */
     responses: {
       /** @description OK */
       200: {
@@ -451,11 +478,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Create File 
+   * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie.
+   */
   "put-profile-file": {
-    /**
-     * Create File 
-     * @description Request a pre-signed upload url for a file you want to upload, if you are logged in with a session cookie.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -489,11 +516,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Get File 
+   * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie.
+   */
   "post-profile-file": {
-    /**
-     * Get File 
-     * @description Request a pre-signed download url for a file you want to download, if you are logged in with a session cookie.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -533,11 +560,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Delete File 
+   * @description Delete the file selected with the id parameter, if you are logged in with a session cookie.
+   */
   "delete-profile-file": {
-    /**
-     * Delete File 
-     * @description Delete the file selected with the id parameter, if you are logged in with a session cookie.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -561,11 +588,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Patch File Metadata 
+   * @description Update the metadata of one of your files, if you are logged in with a session cookie.
+   */
   "patch-profile-file": {
-    /**
-     * Patch File Metadata 
-     * @description Update the metadata of one of your files, if you are logged in with a session cookie.
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -591,11 +618,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Request CSRF-Token 
+   * @description Endpoint for requesting the CSRF Token
+   */
   "get-csrf-token": {
-    /**
-     * Request CSRF-Token 
-     * @description Endpoint for requesting the CSRF Token
-     */
     responses: {
       /** @description OK */
       200: {
@@ -607,11 +634,11 @@ export type operations = {
       };
     };
   };
+  /**
+   * Test CSRF-Token 
+   * @description Endpoint for testing the CSRF Token
+   */
   "test-csrf-token": {
-    /**
-     * Test CSRF-Token 
-     * @description Endpoint for testing the CSRF Token
-     */
     responses: {
       /** @description No Content */
       204: never;
@@ -619,11 +646,11 @@ export type operations = {
       403: never;
     };
   };
+  /**
+   * Request Session 
+   * @description Endpoint for requesting a session cookie
+   */
   "request-session": {
-    /**
-     * Request Session 
-     * @description Endpoint for requesting a session cookie
-     */
     requestBody: {
       content: {
         "application/json": {
@@ -640,11 +667,11 @@ export type operations = {
       403: never;
     };
   };
+  /**
+   * Revoke Session 
+   * @description Endpoint for revoking a session cookie
+   */
   "revoke-session": {
-    /**
-     * Revoke Session 
-     * @description Endpoint for revoking a session cookie
-     */
     responses: {
       /** @description No Content */
       204: never;
@@ -654,11 +681,11 @@ export type operations = {
       500: never;
     };
   };
+  /**
+   * Fetch User Profile 
+   * @description Fetch profile associated with the bearer token.
+   */
   "get-application-profile": {
-    /**
-     * Fetch User Profile 
-     * @description Fetch profile associated with the bearer token.
-     */
     responses: {
       /** @description OK */
       200: {
